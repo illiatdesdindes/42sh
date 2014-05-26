@@ -97,6 +97,7 @@ int		main(int argc, char **argv, char **env)
 			if (!isbuiltin(av))
 				findcmd(av);
 		}
+		freestrv(av);
 		free(line);
 	}
 	return (0);
