@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <42sh.h>
+#include <sh42.h>
 
 extern char	**g_environ;
 
@@ -26,7 +26,7 @@ char	**get_path(void)
 	i = -1;
 	while (g_environ[++i])
 	{
-		if (ft_strstr(g_environ[i], "PATH"))
+		if (ft_strnequ(g_environ[i], "PATH=", 5))
 		{
 			return (ft_strsplit(ft_strchr(g_environ[i], '=') + 1, ":"));
 		}

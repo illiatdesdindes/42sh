@@ -25,7 +25,7 @@ SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJSDIR = objs/
 OBJSFILES = $(SRCSFILES:.c=.o)
 OBJS = $(addprefix $(OBJSDIR), $(OBJSFILES))
-HEADERS = srcs/minishell.h libft/libft.h libft/libftprintf.h
+HEADERS = srcs/sh42.h libft/libft.h libft/libftprintf.h
 HEADERFLAGS = $(addprefix -I, $(dir $(HEADERS)))
 LIBS = libft/libft.a
 LDFLAGS = -L libft/ -lft

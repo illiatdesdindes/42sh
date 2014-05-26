@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <42sh.h>
+#include <sh42.h>
 
 extern char	**g_environ;
 
@@ -81,6 +81,7 @@ int		main(int argc, char **argv, char **env)
 {
 	char	*line;
 	int		ret;
+	char	**av;
 
 	(void)argc;
 	(void)argv;
@@ -89,10 +90,12 @@ int		main(int argc, char **argv, char **env)
 	{
 		ft_putstr("$> ");
 		ret = get_next_line(0, &line);
-		ft_strtim(line);
-		if (line != NULL && *line != '\0')
+		ft_strtrim(line);
+		av = ft_strsplit(line, " \t");
+		if (ret != -1 && av != NULL && *av != '\0')
 		{
-			lexer(line);
+			if (!isbuiltin(av))
+				findcmd(av);
 		}
 		free(line);
 	}

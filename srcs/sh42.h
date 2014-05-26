@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef 42SH_H
-# define 42SH_H
+#ifndef SH42_H
+# define SH42_H
 # include <libft.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/wait.h>
 
 typedef enum	e_op
 {
@@ -27,7 +28,7 @@ typedef struct	s_tok
 	int		type;
 
 	char	*val;
-}				t_tok
+}				t_tok;
 
 int		contentpath(char *file);
 void	freestrv(char **strv);
