@@ -17,17 +17,21 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 
-typedef enum	e_op
+# define GETCWD_SIZE	512
+
+typedef enum	e_toktype
 {
-	OP_PIPE,
-	OP_SEMIC
-}				t_op;
+	PIPE,
+	SEMIC,
+	STRING
+}				t_toktype;
 
 typedef struct	s_tok
 {
-	int		type;
-
-	char	*val;
+	t_toktype		type;
+	char			*str;
+	struct s_tok	*next;
+	struct s_tok	*prev;
 }				t_tok;
 
 int		contentpath(char *file);
@@ -50,6 +54,11 @@ void	bi_printenv(char **av);
 void	bi_cd(char **av);
 void	bi_exit(char **av);
 void	bi_test(char **av);
+t_tok	*lexer(char *line);
+int		isopsymb(char c);
+t_tok	*token_add(t_tok **tokens, t_toktype toktype, char *str);
+t_tok	*token_add_string(t_tok **tokens, char *str, int *ilexer);
+void	print_tokens(t_tok *tokens);
 
 char	**g_environ;
 

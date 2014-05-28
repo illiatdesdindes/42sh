@@ -81,7 +81,7 @@ int		main(int argc, char **argv, char **env)
 {
 	char	*line;
 	int		ret;
-	char	**av;
+	t_tok	*tokens;
 
 	(void)argc;
 	(void)argv;
@@ -89,15 +89,12 @@ int		main(int argc, char **argv, char **env)
 	while (1)
 	{
 		ft_putstr("$> ");
-		ret = get_next_line(0, &line);
-		ft_strtrim(line);
-		av = ft_strsplit(line, " \t");
-		if (ret != -1 && av != NULL && *av != '\0')
+		error_if((ret = get_next_line(0, &line)) == -1, "stdin read failure");
+		if (line != NULL && *line != '\0')
 		{
-			if (!isbuiltin(av))
-				findcmd(av);
+			tokens = lexer(line);
+			print_tokens(tokens);
 		}
-		freestrv(av);
 		free(line);
 	}
 	return (0);

@@ -19,7 +19,11 @@ SRCSFILES = main.c \
 			free.c \
 			builtins.c \
 			builtins2.c \
-			strvutils.c		
+			strvutils.c	\
+			bi_cd.c \
+			print.c \
+			lexer.c \
+			token_add_types.c
 SRCSDIR = srcs/
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJSDIR = objs/

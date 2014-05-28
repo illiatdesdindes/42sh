@@ -24,17 +24,6 @@ void	bi_printenv(char **av)
 	putstrv(g_environ);
 }
 
-void	bi_cd(char **av)
-{
-	char	buf[1024];
-
-	(void)av;
-	chdir(av[1]);
-	ft_setenv("OLDPWD", ft_getenv("PWD"), 1);
-	getcwd(buf, 1024);
-	ft_setenv("PWD", buf, 1);
-}
-
 void	bi_exit(char **av)
 {
 	(void)av;

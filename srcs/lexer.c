@@ -12,4 +12,35 @@
 
 #include <sh42.h>
 
-lexer
+int		isspce(char c)
+{
+	if (c == ' ' || c == '\t')
+		return (1);
+	return (0);
+}
+
+int		isopsymb(char c)
+{
+	if (c == '|' || c == ';')
+		return (1);
+	return (0);
+}
+
+t_tok	*lexer(char *line)
+{
+	int		i;
+	t_tok	*tokens;
+
+	i = -1;
+	tokens = NULL;
+	while (line[++i])
+	{
+		if (line[i] == ';')
+			token_add(&tokens, SEMIC, NULL);
+		else if (line[i] == '|')
+			token_add(&tokens, PIPE, NULL);
+		else if (!isspce(line[i]))
+			token_add_string(&tokens, line + i, &i);
+	}
+	return (tokens);
+}
