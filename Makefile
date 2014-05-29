@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svachere <svachere@student.42.fr>          +#+  +:+       +#+         #
+#    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/05/19 18:31:58 by svachere         ###   ########.fr        #
+#    Updated: 2014/05/29 17:59:11 by apergens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCSFILES = main.c \
 			bi_cd.c \
 			print.c \
 			lexer.c \
-			token_add_types.c
+			token_add_types.c \
+			returncmd.c
 SRCSDIR = srcs/
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJSDIR = objs/

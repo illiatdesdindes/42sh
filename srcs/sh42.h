@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh42.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/05/21 19:29:52 by svachere         ###   ########.fr       */
+/*   Updated: 2014/05/29 17:13:24 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		isopsymb(char c);
 t_tok	*token_add(t_tok **tokens, t_toktype toktype, char *str);
 t_tok	*token_add_string(t_tok **tokens, char *str, int *ilexer);
 void	print_tokens(t_tok *tokens);
+int		returncmd(int n, int set);
 
 char	**g_environ;
 

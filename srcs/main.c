@@ -16,6 +16,7 @@ extern char	**g_environ;
 
 int		execcmd(char *file, char **av)
 {
+	int		state;
 	pid_t	pid;
 
 	pid = fork();
@@ -27,7 +28,8 @@ int		execcmd(char *file, char **av)
 	}
 	if (pid > 0)
 	{
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &state, 0);
+		returncmd(WEXITSTATUS(state), 1);
 	}
 	return (0);
 }
