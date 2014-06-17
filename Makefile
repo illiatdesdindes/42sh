@@ -24,7 +24,10 @@ SRCSFILES = main.c \
 			print.c \
 			lexer.c \
 			token_add_types.c \
-			returncmd.c
+			returncmd.c \
+			ast.c \
+			syntax.c \
+			parser.c
 SRCSDIR = srcs/
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJSDIR = objs/

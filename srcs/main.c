@@ -84,6 +84,7 @@ int		main(int argc, char **argv, char **env)
 	char	*line;
 	int		ret;
 	t_tok	*tokens;
+	t_ast	*ast;
 
 	(void)argc;
 	(void)argv;
@@ -91,11 +92,14 @@ int		main(int argc, char **argv, char **env)
 	while (1)
 	{
 		ft_putstr("$> ");
-		error_if((ret = get_next_line(0, &line)) == -1, "stdin read failure");
+		error_if((ret = get_next_line(0, &line)) == -1, "stdin read failure\n");
 		if (line != NULL && *line != '\0')
 		{
 			tokens = lexer(line);
 			print_tokens(tokens);
+			ast = NULL;
+			ast = parser(tokens, ast);
+			print_ast(ast);
 		}
 		free(line);
 	}
