@@ -21,7 +21,7 @@ int		isspce(char c)
 
 int		isopsymb(char c)
 {
-	if (c == '|' || c == ';')
+	if (c == '|' || c == ';' || c == '&')
 		return (1);
 	return (0);
 }
@@ -37,6 +37,10 @@ t_tok	*lexer(char *line)
 	{
 		if (line[i] == ';')
 			token_add(&tokens, SEMIC, NULL);
+		else if (line[i] == '&' && line[i + 1] == '&' && ++i)
+			token_add(&tokens, AND, NULL);
+		else if (line[i] == '|' && line[i + 1] == '|' && ++i)
+			token_add(&tokens, OR, NULL);
 		else if (line[i] == '|')
 			token_add(&tokens, PIPE, NULL);
 		else if (!isspce(line[i]))

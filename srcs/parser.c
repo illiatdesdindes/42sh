@@ -22,13 +22,25 @@ void	insert_right(t_tok *token, t_ast *ast)
 	newast->up = ast;
 }
 
+int		type_rank(enum e_toktype type)
+{
+	if (type == STRING)
+		return (1);
+	if (type == PIPE)
+		return (2);
+	if (type == AND || type == OR)
+		return (3);
+	return (4);
+}
+
 t_ast	*descend(t_tok *token, t_ast *ast)
 {
 	if (ast == NULL)
 		return (ast_new(token));
-	if (token->type < ast->type && ast->right != NULL)
+	if (type_rank(token->type) < type_rank(ast->type) && ast->right != NULL)
 		descend(token, ast->right);
-	else if (token->type < ast->type && ast->right == NULL)
+	else if (type_rank(token->type) < type_rank(ast->type)
+			&& ast->right == NULL)
 		insert_right(token, ast);
 	else
 		insert(token, ast);

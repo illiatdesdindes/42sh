@@ -24,6 +24,8 @@ typedef enum	e_toktype
 {
 	STRING,
 	PIPE,
+	AND,
+	OR,
 	SEMIC
 }				t_toktype;
 

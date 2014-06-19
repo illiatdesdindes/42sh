@@ -23,6 +23,10 @@ void	ast_put_name(t_ast *ast, int fd)
 	}
 	if (ast && ast->type == PIPE)
 		ft_putstr_fd("PIPE", fd);
+	if (ast && ast->type == AND)
+		ft_putstr_fd("AND", fd);
+	if (ast && ast->type == OR)
+		ft_putstr_fd("OR", fd);
 	if (ast && ast->type == SEMIC)
 		ft_putstr_fd("SEMIC", fd);
 	ft_putchar_fd('"', fd);
@@ -32,7 +36,7 @@ void	ast_recur(t_ast *ast, int fd)
 {
 	ft_putstr_fd("{", fd);
 	ast_put_name(ast, fd);
-	if (ast != NULL)
+	if (ast != NULL && (ast->left != NULL || ast->right != NULL))
 	{
 		ft_putstr_fd(", \"children\" : [", fd);
 		ast_recur(ast->right, fd);
@@ -46,7 +50,7 @@ void	ast_recur(t_ast *ast, int fd)
 void	print_ast(t_ast *ast)
 {
 	int		fd;
-	fd = open("BTreeViewer/flare.json", O_WRONLY | O_CREAT);
+	fd = open("BTreeViewer/flare.json", O_WRONLY | O_CREAT | O_TRUNC);
 	error_if(fd == -1, "can't open flare.json\n");
 	ft_putstr_fd("AST_JSON = ", fd);
 	ast_recur(ast, fd);
