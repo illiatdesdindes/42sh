@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/05/21 17:08:54 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/23 14:18:24 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,13 @@ int		findcmd(char **av)
 		free(file);
 	}
 	ft_printf("command not found: %s\n", *av);
-	freestrv(path);
+	ft_strvdel(&path);
 	return (-1);
+}
+
+void	browse(t_ast *ast)
+{
+	print_ast(ast);
 }
 
 int		main(int argc, char **argv, char **env)
@@ -96,10 +101,12 @@ int		main(int argc, char **argv, char **env)
 		if (line != NULL && *line != '\0')
 		{
 			tokens = lexer(line);
-			print_tokens(tokens);
+			if (DEBUG == 1)
+				print_tokens(tokens);
 			ast = NULL;
 			ast = parser(tokens, ast);
-			print_ast(ast);
+			browse(ast);
+			free_token_ast(&tokens, &ast);
 		}
 		free(line);
 	}

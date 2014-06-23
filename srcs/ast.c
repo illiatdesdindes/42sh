@@ -11,8 +11,9 @@ t_ast	*ast_new(t_tok *token)
 	ast->up = NULL;
 	ast->left = NULL;
 	ast->right = NULL;
+	ast->str = NULL;
 	if (token->type == STRING)
-		ast->str = token->str;
+		ast->str = ft_strdup(token->str);
 	return (ast);
 }
 

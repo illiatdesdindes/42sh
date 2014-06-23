@@ -6,13 +6,13 @@
 #    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/05/29 17:59:11 by apergens         ###   ########.fr        #
+#    Updated: 2014/06/23 14:22:01 by svachere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 42sh
+NAME = patatesh
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g3
 SRCSFILES = main.c \
 			env.c \
 	 		pathmanip.c \

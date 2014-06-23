@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/05/21 17:08:54 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/23 13:56:12 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	print_ast(t_ast *ast)
 	ast_recur(ast, fd);
 	ft_putstr_fd(";", fd);
 	close(fd);
-	ft_putstr("\n##### check BTreeViewer/index.html to see AST dump #####\n\n");
 }
 
 void	print_tokens(t_tok *tokens)

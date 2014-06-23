@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/05/29 17:13:24 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/23 14:10:58 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 
 # define GETCWD_SIZE	512
+# define DEBUG 0
 
 typedef enum	e_toktype
 {
@@ -47,7 +48,7 @@ typedef struct	s_ast
 }				t_ast;
 
 int		contentpath(char *file);
-void	freestrv(char **strv);
+void	free_token_ast(t_tok **tok, t_ast **ast);
 void	strvtrim(char **strv);
 int		isbuiltin(char **av);
 char	*joinwith(char *path, char *file, char *join);
