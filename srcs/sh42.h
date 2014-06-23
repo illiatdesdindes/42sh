@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 15:55:12 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/23 22:45:04 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct	s_ast
 	struct s_ast	*left;
 	struct s_ast	*right;
 }				t_ast;
+
+char	**ft_strsplitquote(char const *s, char *splitchars);
 
 int		contentpath(char *file);
 int		findcmd(char **av);

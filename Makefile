@@ -6,7 +6,7 @@
 #    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/06/23 15:54:44 by svachere         ###   ########.fr        #
+#    Updated: 2014/06/23 22:43:59 by apergens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCSFILES = main.c \
 			ast.c \
 			syntax.c \
 			parser.c \
-			exec_node.c
+			exec_node.c \
+			ft_strsplitquote.c
 SRCSDIR = srcs/
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJSDIR = objs/
