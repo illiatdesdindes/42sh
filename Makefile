@@ -6,7 +6,7 @@
 #    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/06/23 14:22:01 by svachere         ###   ########.fr        #
+#    Updated: 2014/06/23 15:54:44 by svachere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -g3
 SRCSFILES = main.c \
 			env.c \
 	 		pathmanip.c \
+			findcmdexec.c \
 			free.c \
 			builtins.c \
 			builtins2.c \
@@ -27,7 +28,8 @@ SRCSFILES = main.c \
 			returncmd.c \
 			ast.c \
 			syntax.c \
-			parser.c
+			parser.c \
+			exec_node.c
 SRCSDIR = srcs/
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJSDIR = objs/

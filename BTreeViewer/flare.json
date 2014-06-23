@@ -1,1 +1,1 @@
-AST_JSON = {"name": "AND", "children" : [{"name": "PIPE", "children" : [{"name": "STRING : pwd"} , {"name": "STRING : cat gdtd "}] } , {"name": "PIPE", "children" : [{"name": "STRING : bc "} , {"name": "STRING : cat truc "}] }] };
+AST_JSON = {"name": "STRING : ls"};

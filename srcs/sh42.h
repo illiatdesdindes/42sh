@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 14:10:58 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/23 15:55:12 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct	s_ast
 }				t_ast;
 
 int		contentpath(char *file);
+int		findcmd(char **av);
+void	freestrv(char **strv);
 void	free_token_ast(t_tok **tok, t_ast **ast);
 void	strvtrim(char **strv);
 int		isbuiltin(char **av);
@@ -78,6 +80,7 @@ t_ast	*parser(t_tok *token, t_ast *ast);
 t_ast	*syntax(t_tok *token, t_ast *ast);
 t_ast	*ast_new(t_tok *token);
 t_ast	*ast_root(t_ast *ast);
+int		exec_node(t_ast *ast, int fdin, int fdout);
 
 char	**g_environ;
 
