@@ -12,11 +12,15 @@
 
 #include <sh42.h>
 
-
 void	browse(t_ast *ast)
 {
-	//print_ast(ast);
 	exec_node(ast, STDIN_FILENO, STDOUT_FILENO);
+}
+
+void	void_this(int ac, char **av)
+{
+	(void)ac;
+	(void)av;
 }
 
 int		main(int argc, char **argv, char **env)
@@ -31,8 +35,7 @@ int		main(int argc, char **argv, char **env)
 		ft_putendl("Can't launch with an empty environment");
 		exit(1);
 	}
-	(void)argc;
-	(void)argv;
+	void_this(argc, argv);
 	copyenv(env);
 	while (1)
 	{

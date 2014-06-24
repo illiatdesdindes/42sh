@@ -16,7 +16,7 @@ void	ast_put_name(t_ast *ast, int fd)
 {
 	ft_putstr_fd("\"name\": ", fd);
 	ft_putchar_fd('"', fd);
-	if (ast &&	ast->type == STRING)
+	if (ast && ast->type == STRING)
 	{
 		ft_putstr_fd("STRING : ", fd);
 		ft_putstr_fd(ast->str, fd);
@@ -50,6 +50,7 @@ void	ast_recur(t_ast *ast, int fd)
 void	print_ast(t_ast *ast)
 {
 	int		fd;
+
 	fd = open("BTreeViewer/flare.json", O_WRONLY | O_CREAT | O_TRUNC);
 	error_if(fd == -1, "can't open flare.json\n");
 	ft_putstr_fd("AST_JSON = ", fd);

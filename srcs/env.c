@@ -74,20 +74,13 @@ int		ft_setenv(char *name, char *value, int overwrite)
 	return (0);
 }
 
-int		ft_unsetenv(char *name)
+int		ft_unsetenv(char *name, int i, int find)
 {
-	int	i;
-	int	find;
-	int	count;
-
 	if (!name || name == NULL)
 	{
 		ft_putendl("Syntax error. Example: unsetenv key");
 		return (1);
 	}
-	i = -1;
-	find = 0;
-	count = 0;
 	while (g_environ[++i])
 	{
 		if (find)
@@ -97,10 +90,9 @@ int		ft_unsetenv(char *name)
 			find = 1;
 			free(g_environ[i]);
 			g_environ[i] = NULL;
-			count = 1;
 		}
 	}
-	if (count == 1)
+	if (find == 1)
 	{
 		g_environ[i - 1] = NULL;
 		free(g_environ[i - 1]);
