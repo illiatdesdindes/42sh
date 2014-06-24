@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 AST_JSON = {"name": "STRING : echo '        lkfiewghfglkjk   wefehkj rwkjer n k w" rwngjk wbkjg'"};
+=======
+AST_JSON = {"name": "STRING : cd"};
+>>>>>>> 5242862fda2496d16ec01725469d17f640f2091d

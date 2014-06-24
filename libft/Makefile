@@ -12,7 +12,7 @@
 
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 SRCSFILES = pf_putstr.c pf_putnbr.c pf_print_num.c pf_print_chars.c \
 		pf_print_pointer.c pf_format.c ft_printf.c \
 		ft_strlen.c ft_strdup.c ft_strcpy.c ft_strcat.c ft_strncat.c \

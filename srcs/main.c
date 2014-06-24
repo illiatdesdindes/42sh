@@ -15,7 +15,7 @@
 
 void	browse(t_ast *ast)
 {
-	print_ast(ast);
+	//print_ast(ast);
 	exec_node(ast, STDIN_FILENO, STDOUT_FILENO);
 }
 
@@ -26,6 +26,11 @@ int		main(int argc, char **argv, char **env)
 	t_tok	*tokens;
 	t_ast	*ast;
 
+	if (env[0] == NULL)
+	{
+		ft_putendl("Can't launch with an empty environment");
+		exit(1);
+	}
 	(void)argc;
 	(void)argv;
 	copyenv(env);
