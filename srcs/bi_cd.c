@@ -41,16 +41,10 @@ static void		bi_cd_strdir(char *pwd, int endl)
 
 static int		bi_cd_deleg(char *dir, char **av, int home)
 {
-	int		ret;
 	char	get[GETCWD_SIZE + 1];
 
-	if (home)
-	{
-		if (!ft_strcmp(dir, "~") || !ft_strncmp(dir, "--", ft_strlen(dir)))
-			return (1);
-		return (0);
-	}
-	if ((ret = chdir(dir)) > -1)
+	home = 0;
+	if (chdir(dir) > -1)
 	{
 		if (getcwd(get, GETCWD_SIZE) != NULL && !(*(get + GETCWD_SIZE) = '\0'))
 		{
@@ -60,8 +54,20 @@ static int		bi_cd_deleg(char *dir, char **av, int home)
 	}
 	else if (!(*(av + 1) != NULL && *(av + 2) != NULL))
 	{
-		ft_putstr_fd("cd: No such file or directory: ", STDERR_FILENO);
-		ft_putendl_fd(dir, STDERR_FILENO);
+		if (ft_strncmp(dir, "~/", 2) == 0)
+		{
+			char *dir2 = ft_strjoin(ft_getenv("HOME"), dir + 1);
+			if (chdir(dir2) > -1)
+			{
+				ft_setenv("OLDPWD", ft_getenv("PWD"), 1);
+				ft_setenv("PWD", get, 1);
+			}
+		}
+		else
+		{
+			ft_putstr_fd("cd: No such file or directory: ", STDERR_FILENO);
+			ft_putendl_fd(dir, STDERR_FILENO);
+		}
 	}
 	return (0);
 }
@@ -74,7 +80,7 @@ void			bi_cd(char **av)
 	if (*(av + 1) != NULL && *(av + 2) != NULL)
 		ft_putendl_fd("cd: too many arguments", 2);
 	dir = *(av + 1);
-	if ((ptr = dir) == NULL || !*dir || bi_cd_deleg(dir, av, 1))
+	if ((ptr = dir) == NULL || !*dir)
 		dir = ft_getenv("HOME");
 	else if (*dir == '-' && *(dir + 1) == '\0')
 	{
@@ -92,5 +98,5 @@ void			bi_cd(char **av)
 		return ;
 	}
 	bi_cd_deleg(dir, av, 0);
-	ft_strdel(&ptr);
+	//ft_strdel(&ptr);
 }

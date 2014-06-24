@@ -25,8 +25,9 @@ int		exec_string(t_ast *ast, int fdin, int fdout)
 
 	(void)fdin;
 	(void)fdout;
-	av = ft_strsplitquote(ast->str, " \t");
-	findcmd(av);
+	av = ft_strsplit(ast->str, " \t");
+	if (!isbuiltin(av))
+		findcmd(av);
 	ft_strvdel(&av);
 	return (1);
 }
