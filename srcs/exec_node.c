@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:43:35 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 22:45:11 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/24 14:46:55 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		exec_string(t_ast *ast, int fdin, int fdout)
 
 	(void)fdin;
 	(void)fdout;
-	av = ft_strsplit(ast->str, " \t");
+	av = ft_strsplitquote(ast->str, " \t");
 	if (!isbuiltin(av))
 		findcmd(av);
 	ft_strvdel(&av);

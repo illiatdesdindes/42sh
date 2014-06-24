@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:22:54 by svachere          #+#    #+#             */
-/*   Updated: 2014/04/25 17:20:22 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/24 13:48:14 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_strvlen(char **strv)
 	int		i;
 
 	i = 0;
-	while (strv[i])
+	while (strv && strv[i])
 		i++;
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 12:19:30 by svachere          #+#    #+#             */
-/*   Updated: 2014/04/25 17:09:28 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/24 14:49:55 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,12 @@ static char		*ft_extract_word(char *s, char *splitchars)
 	return (word);
 }
 
-static int		ft_table_len(char **table)
-{
-	int	len;
-
-	len = 0;
-	while (table != NULL && table[len] != NULL)
-		len++;
-	return (len);
-}
-
 static char		**ft_add_word_to_table(char *word, char **table)
 {
 	int		i;
 	char	**tmptable;
 
-	tmptable = (char**)malloc(sizeof(char*) * (ft_table_len(table) + 2));
+	tmptable = (char**)malloc(sizeof(char*) * (ft_strvlen(table) + 2));
 	i = 0;
 	while (table != NULL && table[i] != NULL)
 	{
