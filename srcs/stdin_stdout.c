@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 16:07:02 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 16:50:41 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/24 19:26:25 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	stdio_init_dup()
 
 	newfdin = dup(STDIN_FILENO);
 	newfdout = dup(STDOUT_FILENO);
+	error_if(newfdin == -1 || newfdout == -1, "dup failed in stdio_init_dup");
 	stdio_store(STDIN_FILENO, SET, newfdin);
 	stdio_store(STDOUT_FILENO, SET, newfdout);
 }

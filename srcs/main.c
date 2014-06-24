@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 17:58:03 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/24 18:52:50 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,7 @@ void	browse(t_ast *ast)
 {
 	print_ast(ast);
 	if (ast != NULL)
-		exec_node(ast, STDIN_FILENO, STDOUT_FILENO);
-}
-
-void	void_this(int ac, char **av)
-{
-	(void)ac;
-	(void)av;
+		exec_node(ast, stdin_get(), stdout_get());
 }
 
 void	sig_handler(int sig)
@@ -32,6 +26,15 @@ void	sig_handler(int sig)
 	ft_putstr("$> ");
 }
 
+void	init_shell(int ac, char **av, char **env)
+{
+	(void)ac;
+	(void)av;
+	error_if(env[0] == NULL, "Can't launch with an empty environment");
+	copyenv(env);
+	stdio_init_dup();
+}
+
 int		main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -39,16 +42,9 @@ int		main(int argc, char **argv, char **env)
 	t_tok	*tokens;
 	t_ast	*ast;
 
-	if (env[0] == NULL)
-	{
-		ft_putendl("Can't launch with an empty environment");
-		exit(1);
-	}
-	void_this(argc, argv);
-	copyenv(env);
+	init_shell(argc, argv, env);
 	while (1)
 	{
-
 		ft_putstr("$> ");
 		signal(SIGINT, &sig_handler);
 		error_if((ret = get_next_line(0, &line)) == -1, "stdin read failure\n");
