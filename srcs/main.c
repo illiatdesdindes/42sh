@@ -23,6 +23,13 @@ void	void_this(int ac, char **av)
 	(void)av;
 }
 
+void	sig_handler(int sig)
+{
+	(void)sig;
+	ft_putchar('\n');
+	ft_putstr("$> ");
+}
+
 int		main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -39,7 +46,9 @@ int		main(int argc, char **argv, char **env)
 	copyenv(env);
 	while (1)
 	{
+		
 		ft_putstr("$> ");
+		signal(SIGINT, &sig_handler);
 		error_if((ret = get_next_line(0, &line)) == -1, "stdin read failure\n");
 		if (line != NULL && *line != '\0')
 		{
