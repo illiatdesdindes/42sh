@@ -20,7 +20,7 @@ static int		isin(char c, char *str, int reset)
 
 	quote = (reset == 1) ? 0 : quote;
 	dbquote = (reset == 1) ? 0 : dbquote;
-	if (reset ==1)
+	if (reset == 1)
 		return (0);
 	if (reset != -1 && !dbquote && c == '\'')
 		quote = quote ? 0 : 1;

@@ -14,9 +14,9 @@
 
 int		syntax_pipe(t_tok *token)
 {
-	if (token->prev == NULL 
-			|| token->prev->type != STRING 
-			|| token->next == NULL 
+	if (token->prev == NULL
+			|| token->prev->type != STRING
+			|| token->next == NULL
 			|| token->next->type != STRING)
 	{
 		error_exit("syntax error near '|'");

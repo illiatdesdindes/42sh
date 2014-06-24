@@ -19,5 +19,5 @@ void	bi_setenv(char **av)
 
 void	bi_unsetenv(char **av)
 {
-	ft_unsetenv(av[1]);
+	ft_unsetenv(av[1], -1, 0);
 }
