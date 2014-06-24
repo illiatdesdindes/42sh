@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:43:35 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 19:07:21 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/24 19:30:01 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		exec_string(t_ast *ast, int fdin, int fdout)
 {
 	char	**av;
 
-	dup2(fdin, STDIN_FILENO);
-	dup2(fdout, STDOUT_FILENO);
+	error_if(dup2(fdin, STDIN_FILENO) == -1, "dup2 fdin failed");
+	error_if(dup2(fdout, STDOUT_FILENO) == -1, "dup2 fdout failed");
 	av = ft_strsplitquote(ast->str, " \t");
 	if (!isbuiltin(av))
 		findcmd(av);
