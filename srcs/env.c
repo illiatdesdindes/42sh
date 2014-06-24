@@ -74,12 +74,17 @@ int		ft_setenv(char *name, char *value, int overwrite)
 	return (0);
 }
 
-void	ft_unsetenv(char *name)
+int		ft_unsetenv(char *name)
 {
 	int	i;
 	int	find;
 	int	count;
 
+	if (!name || name == NULL)
+	{
+		ft_putendl("Syntax error. Example: unsetenv key");
+		return (1);
+	}
 	i = -1;
 	find = 0;
 	count = 0;
@@ -100,4 +105,5 @@ void	ft_unsetenv(char *name)
 		g_environ[i - 1] = NULL;
 		free(g_environ[i - 1]);
 	}
+	return (0);
 }

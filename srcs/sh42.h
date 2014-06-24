@@ -63,7 +63,7 @@ char	*ft_getenv(char *name);
 int		ft_setenv(char *name, char *value, int overwrite);
 int		strvput(char **strv, char *s);
 int		strvadd(char ***strv, char *s);
-void	ft_unsetenv(char *name);
+int		ft_unsetenv(char *name);
 int		copyenv(char **env);
 void	bi_setenv(char **av);
 void	bi_unsetenv(char **av);
