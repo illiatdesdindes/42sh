@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 22:45:04 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/24 16:50:41 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 # define GETCWD_SIZE	512
 # define DEBUG 0
+# define SET 0
+# define GET 1
 
 typedef enum	e_toktype
 {
@@ -83,6 +85,9 @@ t_ast	*syntax(t_tok *token, t_ast *ast);
 t_ast	*ast_new(t_tok *token);
 t_ast	*ast_root(t_ast *ast);
 int		exec_node(t_ast *ast, int fdin, int fdout);
+int		stdin_get();
+int		stdout_get();
+void	stdio_init_dup();
 
 char	**g_environ;
 

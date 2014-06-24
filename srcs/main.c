@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 15:54:44 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/24 16:50:41 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,19 @@
 
 void	browse(t_ast *ast)
 {
-	//print_ast(ast);
+	print_ast(ast);
 	exec_node(ast, STDIN_FILENO, STDOUT_FILENO);
+}
+
+void	test()
+{
+	ft_printf("%d\n", STDIN_FILENO);
+	ft_printf("%d\n", STDOUT_FILENO);
+	ft_printf("%d,\n", stdin_get());
+	ft_printf("%d,\n", stdout_get());
+	stdio_init_dup();
+	ft_printf("%d,\n", stdin_get());
+	ft_printf("%d,\n", stdout_get());
 }
 
 int		main(int argc, char **argv, char **env)
@@ -34,6 +45,7 @@ int		main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	copyenv(env);
+	test();
 	while (1)
 	{
 		ft_putstr("$> ");
