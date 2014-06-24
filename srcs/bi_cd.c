@@ -62,6 +62,7 @@ static int		bi_cd_deleg(char *dir, char **av, int home)
 				ft_setenv("OLDPWD", ft_getenv("PWD"), 1);
 				ft_setenv("PWD", get, 1);
 			}
+			ft_strdel(&dir2);
 		}
 		else
 		{
@@ -75,12 +76,11 @@ static int		bi_cd_deleg(char *dir, char **av, int home)
 void			bi_cd(char **av)
 {
 	char	*dir;
-	char	*ptr;
 
 	if (*(av + 1) != NULL && *(av + 2) != NULL)
 		ft_putendl_fd("cd: too many arguments", 2);
 	dir = *(av + 1);
-	if ((ptr = dir) == NULL || !*dir)
+	if (dir == NULL || !*dir)
 		dir = ft_getenv("HOME");
 	else if (*dir == '-' && *(dir + 1) == '\0')
 	{
@@ -98,5 +98,4 @@ void			bi_cd(char **av)
 		return ;
 	}
 	bi_cd_deleg(dir, av, 0);
-	//ft_strdel(&ptr);
 }

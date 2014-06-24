@@ -52,6 +52,11 @@ int		ft_setenv(char *name, char *value, int overwrite)
 	char	*find;
 	int		i;
 
+	if (!name || name == NULL || !value || value == NULL)
+	{
+		ft_putendl("Syntax error. Example: setenv key value");
+		return (1);
+	}
 	find = ft_getenv(name);
 	if (find && !overwrite)
 		return (0);
