@@ -78,4 +78,3 @@ int		findcmd(char **av)
 	ft_strvdel(&path);
 	return (-1);
 }
-
