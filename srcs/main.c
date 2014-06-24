@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 15:54:44 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:30:25 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	browse(t_ast *ast)
 {
-	//print_ast(ast);
+	print_ast(ast);
 	exec_node(ast, STDIN_FILENO, STDOUT_FILENO);
 }
 

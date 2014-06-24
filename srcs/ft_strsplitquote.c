@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplitquote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 12:19:30 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 14:43:19 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:54:42 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh42.h"
 #include <stdlib.h>
-
-/*
- * Reset :
- *  1.  Réinitialisation des quotes
- *  0.  Aucune action
- *  -1. Ignore les quotes
-*/
 
 static int		isin(char c, char *str, int reset)
 {
@@ -42,6 +35,39 @@ static int		isin(char c, char *str, int reset)
 	return (0);
 }
 
+static char		*ft_remove_quotes(char *str)
+{
+	int			i;
+	int			j;
+	int			quote;
+	char		*clean;
+
+	if ((clean = ft_strnew(ft_strlen(str))))
+	{
+		i = -1;
+		j = -1;
+		quote = 0;
+		while (*(str + (++i)))
+		{
+			if (*(str + i) != '\'' && *(str + i) != '"')
+				*(clean + (++j)) = *(str + i);
+			else if (quote == '\'' && *(str + i) == '"')
+				*(clean + (++j)) = *(str + i);
+			else if (quote == '"' && *(str + i) == '\'')
+				*(clean + (++j)) = *(str + i);
+			if (!quote && (*(str + i) == '\'' || *(str + i) == '"'))
+				quote = *(str + i);
+			else
+			{
+				quote = (quote == '\'' && *(str + i) == quote) ? 0 : quote;
+				quote = (quote == '"' && *(str + i) == quote) ? 0 : quote;
+			}
+		}
+		ft_strdel(&str);
+	}
+	return (clean);
+}
+
 static char		*ft_extract_word(char *s, char *splitchars)
 {
 	int			len;
@@ -50,11 +76,12 @@ static char		*ft_extract_word(char *s, char *splitchars)
 	len = 0;
 	while (!isin(s[len], splitchars, 0) && s[len] != '\0')
 		len++;
-	word = (char*)malloc(sizeof(char) * (len + 1));
+	if (!(word = (char*)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
 	word[len] = '\0';
 	while (len--)
 		word[len] = s[len];
-	return (word);
+	return (ft_remove_quotes(word));
 }
 
 static char		**ft_add_word_to_table(char *word, char **table)
@@ -62,7 +89,9 @@ static char		**ft_add_word_to_table(char *word, char **table)
 	int			i;
 	char		**tmptable;
 
-	tmptable = (char**)malloc(sizeof(char*) * (ft_strvlen(table) + 2));
+	if (!(tmptable = (char**)malloc(sizeof(char*) * (ft_strvlen(table) + 2))) ||
+		word == NULL)
+		return (NULL);
 	i = 0;
 	while (table != NULL && table[i] != NULL)
 	{
@@ -94,7 +123,7 @@ char			**ft_strsplitquote(char const *s, char *splitchars)
 		{
 			word = ft_extract_word((char*)(s + i), splitchars);
 			table = ft_add_word_to_table(word, table);
-			i += ft_strlen(word) - 1;
+			i += ft_strlen(word);
 		}
 		i++;
 	}
