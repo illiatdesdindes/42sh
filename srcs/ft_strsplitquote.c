@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 12:19:30 by svachere          #+#    #+#             */
-/*   Updated: 2014/04/25 17:09:28 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/24 14:43:19 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ static int		isin(char c, char *str, int reset)
 	static int	quote;
 	static int	dbquote;
 
-	quote = reset ? 0 : quote;
-	dbquote = reset ? 0 : dbquote;
-	while (!reset && str && *str)
+	quote = (reset == 1) ? 0 : quote;
+	dbquote = (reset == 1) ? 0 : dbquote;
+	if (reset ==1)
+		return (0);
+	if (reset != -1 && !dbquote && c == '\'')
+		quote = quote ? 0 : 1;
+	else if (reset != -1 && !quote && c == '"')
+		dbquote = dbquote ? 0 : 1;
+	while (*str)
 	{
-		if (reset != -1 && !dbquote && c == '\'')
-			quote = quote ? 0 : 1;
-		else if (reset != -1 && !quote && c == '"')
-			dbquote = dbquote ? 0 : 1;
-		if (!quote && !dbquote && c == *str)
+		if ((reset == -1 || (!quote && !dbquote)) && c == *str)
 			return (1);
 		str++;
 	}
@@ -55,22 +57,12 @@ static char		*ft_extract_word(char *s, char *splitchars)
 	return (word);
 }
 
-static int		ft_table_len(char **table)
-{
-	int			len;
-
-	len = 0;
-	while (table != NULL && table[len] != NULL)
-		len++;
-	return (len);
-}
-
 static char		**ft_add_word_to_table(char *word, char **table)
 {
 	int			i;
 	char		**tmptable;
 
-	tmptable = (char**)malloc(sizeof(char*) * (ft_table_len(table) + 2));
+	tmptable = (char**)malloc(sizeof(char*) * (ft_strvlen(table) + 2));
 	i = 0;
 	while (table != NULL && table[i] != NULL)
 	{
@@ -102,6 +94,7 @@ char			**ft_strsplitquote(char const *s, char *splitchars)
 		{
 			word = ft_extract_word((char*)(s + i), splitchars);
 			table = ft_add_word_to_table(word, table);
+			i += ft_strlen(word) - 1;
 		}
 		i++;
 	}
