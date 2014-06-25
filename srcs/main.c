@@ -19,13 +19,6 @@ void	browse(t_ast *ast)
 		exec_node(ast, stdin_get(), stdout_get());
 }
 
-void	sig_handler(int sig)
-{
-	(void)sig;
-	ft_putchar('\n');
-	ft_putstr("$> ");
-}
-
 void	init_shell(int ac, char **av, char **env)
 {
 	(void)ac;

@@ -19,7 +19,7 @@
 # include <sys/wait.h>
 
 # define GETCWD_SIZE	512
-# define DEBUG			1
+# define DEBUG			0
 # define SET			0
 # define GET			1
 
@@ -87,7 +87,7 @@ int					exec_node(t_ast *ast, int fdin, int fdout);
 void				stdio_init_dup();
 int					stdin_get();
 int					stdout_get();
-
 char				**g_environ;
+void				sig_handler(int sig);
 
 #endif
