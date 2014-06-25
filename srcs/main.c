@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 16:57:45 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:22:08 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ void	init_shell(int ac, char **av, char **env)
 	error_if(env[0] == NULL, "Can't launch with an empty environment");
 	copyenv(env);
 	stdio_init_dup();
+	signal(SIGINT, &sig_handler);
+}
+
+void	ret_check(int ret)
+{
+	if (ret == -1)
+		ft_putstr("stdin read failure\n");
+	else if (ret == 0)
+	{
+		ft_putstr("Bye!\n");
+		exit(0);
+	}
 }
 
 int		main(int argc, char **argv, char **env)
@@ -46,9 +58,8 @@ int		main(int argc, char **argv, char **env)
 	init_shell(argc, argv, env);
 	while (1)
 	{
-		ft_putstr("$> ");
-		signal(SIGINT, &sig_handler);
-		error_if((ret = get_next_line(0, &line)) == -1, "stdin read failure\n");
+		putprompt();
+		ret_check(ret = get_next_line(0, &line));
 		if (line != NULL && *line != '\0' && (tokens = lexer(line)))
 		{
 			if (DEBUG == 1)

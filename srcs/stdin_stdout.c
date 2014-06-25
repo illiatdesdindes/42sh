@@ -21,18 +21,18 @@ int		stdio_store(int inorout, int getorset, int fd)
 	{
 		if (getorset == SET)
 			indup = fd;
-		return indup;
+		return (indup);
 	}
 	else if (inorout == STDOUT_FILENO)
 	{
 		if (getorset == SET)
 			outdup = fd;
-		return outdup;
+		return (outdup);
 	}
 	return (-1);
 }
 
-void	stdio_init_dup()
+void	stdio_init_dup(void)
 {
 	int		newfdin;
 	int		newfdout;
@@ -44,12 +44,12 @@ void	stdio_init_dup()
 	stdio_store(STDOUT_FILENO, SET, newfdout);
 }
 
-int		stdin_get()
+int		stdin_get(void)
 {
 	return (stdio_store(STDIN_FILENO, GET, 0));
 }
 
-int		stdout_get()
+int		stdout_get(void)
 {
 	return (stdio_store(STDOUT_FILENO, GET, 0));
 }

@@ -95,5 +95,7 @@ int					stdin_get();
 int					stdout_get();
 char				**g_environ;
 void				sig_handler(int sig);
+void				putprompt(void);
+void				bi_cd_deleg3(char *get);
 
 #endif
