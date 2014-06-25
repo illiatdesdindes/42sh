@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 12:19:30 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 14:29:14 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:53:44 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ static int		isin(char c, char *str, int reset)
 		else if (!quote && c == '"')
 			dbquote = dbquote ? 0 : 1;
 	}
-/*	if (reset >= 0)
-//		ft_printf("%c : quote = %d; dbquote = %d;\n", c, quote, dbquote);
-		ft_printf("%c", c, quote, dbquote);*/
 	while (*str)
 	{
 		if ((reset == -1 || (!quote && !dbquote)) && c == *str)
@@ -76,7 +73,6 @@ static char		*ft_extract_word(char *s, char *splitchars)
 	char		*word;
 
 	len = 0;
-//	while (!isin(s[len], splitchars, len ? 0 : -1) && s[len] != '\0')
 	while (!isin(s[len], splitchars, len ? 0 : -1) && s[len] != '\0')
 		len++;
 	if (!(word = (char*)malloc(sizeof(char) * (len + 1))))

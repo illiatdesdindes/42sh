@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 15:54:19 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:05:19 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:53:04 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int		execcmd(char *file, char **av, t_pipe pipes)
 	int		state;
 	pid_t	pid;
 
-	pid = fork();
-	if (pid == 0)
+	if ((pid = fork()) == 0)
 	{
 		close(pipes.in[1]);
 		close(pipes.out[0]);

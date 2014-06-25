@@ -6,15 +6,15 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/26 15:54:12 by svachere          #+#    #+#             */
-/*   Updated: 2014/05/21 17:10:22 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:52:18 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh42.h>
 
-extern char	**g_environ;
+extern char		**g_environ;
 
-static size_t		ft_strleneg(char *str)
+static size_t	ft_strleneg(char *str)
 {
 	size_t	i;
 
@@ -24,13 +24,12 @@ static size_t		ft_strleneg(char *str)
 	return (i);
 }
 
-static char	*ft_streg(char *str)
+static char		*ft_streg(char *str)
 {
-	int	i;
-	char *ret;
+	int		i;
+	char	*ret;
 
 	i = 0;
-
 	while (str[i] && str[i] != '=')
 		i++;
 	ret = ft_strnew(i + 1);
@@ -40,25 +39,25 @@ static char	*ft_streg(char *str)
 		ret[i] = str[i];
 		i++;
 	}
-	ret[i]= '\0';
+	ret[i] = '\0';
 	return (ret);
 }
 
-char	*ft_getenv(char *name)
+char			*ft_getenv(char *name)
 {
 	int	i;
 
 	i = -1;
 	while (g_environ[++i])
 	{
-		if (ft_strstr(ft_streg(g_environ[i]), name) 
+		if (ft_strstr(ft_streg(g_environ[i]), name)
 				&& (ft_strlen(name) == ft_strleneg(g_environ[i])))
 			return (ft_strchr(g_environ[i], '=') + 1);
 	}
 	return (NULL);
 }
 
-int		ft_setenv(char *name, char *value, int overwrite)
+int				ft_setenv(char *name, char *value, int overwrite)
 {
 	char	*find;
 	int		i;
@@ -87,7 +86,7 @@ int		ft_setenv(char *name, char *value, int overwrite)
 	return (0);
 }
 
-int		ft_unsetenv(char *name, int i, int find)
+int				ft_unsetenv(char *name, int i, int find)
 {
 	if (!name || name == NULL)
 	{
