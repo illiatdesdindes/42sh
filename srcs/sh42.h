@@ -89,5 +89,6 @@ int					stdin_get();
 int					stdout_get();
 char				**g_environ;
 void				sig_handler(int sig);
+void				putprompt(void);
 
 #endif

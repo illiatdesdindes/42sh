@@ -32,7 +32,8 @@ SRCSFILES = main.c \
 			exec_node.c \
 			ft_strsplitquote.c \
 			stdin_stdout.c \
-			signal.c
+			signal.c \
+			prompt.c
 SRCSDIR = srcs/
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJSDIR = objs/

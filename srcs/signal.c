@@ -16,5 +16,5 @@ void	sig_handler(int sig)
 {
 	(void)sig;
 	ft_putchar('\n');
-	ft_putstr("$> ");
+	putprompt();
 }
