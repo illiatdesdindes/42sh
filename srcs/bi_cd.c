@@ -41,23 +41,25 @@ static void		bi_cd_strdir(char *pwd, int endl)
 
 static int		bi_cd_deleg2(char *dir, char *get)
 {
-	char	*dir2;
-
-	dir2 = NULL;
 	if (ft_strncmp(dir, "~/", 2) == 0)
 	{
-		dir2 = ft_strjoin(ft_getenv("HOME"), dir + 1);
-		if (chdir(dir2) > -1)
+		if (chdir(ft_strjoin(ft_getenv("HOME"), dir + 1)) > -1)
+			bi_cd_deleg3(get);
+		else
 		{
-			ft_setenv("OLDPWD", ft_getenv("PWD"), 1);
-			ft_setenv("PWD", get, 1);
+			ft_putstr_fd("cd: No such file or directory: ", STDERR_FILENO);
+			ft_putendl_fd(dir, STDERR_FILENO);
 		}
-		ft_strdel(&dir2);
 	}
-	else
+	else if (dir[0] == '/' && dir[1] != '\0')
 	{
-		ft_putstr_fd("cd: No such file or directory: ", STDERR_FILENO);
-		ft_putendl_fd(dir, STDERR_FILENO);
+		if (chdir(dir + 1) > -1)
+			bi_cd_deleg3(get);
+		else
+		{
+			ft_putstr_fd("cd: No such file or directory: ", STDERR_FILENO);
+			ft_putendl_fd(dir, STDERR_FILENO);
+		}
 	}
 	return (0);
 }

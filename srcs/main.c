@@ -14,7 +14,7 @@
 
 void	browse(t_ast *ast)
 {
-	print_ast(ast);
+	//print_ast(ast);
 	if (ast != NULL)
 		exec_node(ast, stdin_get(), stdout_get());
 }
