@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 13:56:12 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 08:43:30 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ void	print_tokens(t_tok *tokens)
 	while (tokens)
 	{
 		ft_putchar('[');
+		if (tokens->type == AND)
+			ft_putstr("AND");
+		if (tokens->type == OR)
+			ft_putstr("OR");
 		if (tokens->type == PIPE)
 			ft_putstr("PIPE");
 		if (tokens->type == SEMIC)
 			ft_putstr("SEMIC");
 		if (tokens->type == STRING)
-		{
-			ft_putstr("STRING ");
-			ft_putstr(tokens->str);
-		}
+			ft_printf("STRING %s", tokens->str);
 		ft_putchar(']');
 		if (tokens->next)
 			ft_putstr(", ");

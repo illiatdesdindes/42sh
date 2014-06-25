@@ -55,13 +55,9 @@ static char		*ft_remove_quotes(char *str)
 				*(clean + (++j)) = *(str + i);
 			else if (quote == '"' && *(str + i) == '\'')
 				*(clean + (++j)) = *(str + i);
+			quote = (quote <= 0 && *(str + i) == quote) ? -1 : quote;
 			if (!quote && (*(str + i) == '\'' || *(str + i) == '"'))
 				quote = *(str + i);
-			else
-			{
-				quote = (quote == '\'' && *(str + i) == quote) ? 0 : quote;
-				quote = (quote == '"' && *(str + i) == quote) ? 0 : quote;
-			}
 		}
 		ft_strdel(&str);
 	}

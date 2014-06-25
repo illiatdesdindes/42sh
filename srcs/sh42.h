@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 18:51:47 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 08:37:00 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <sys/wait.h>
 
 # define GETCWD_SIZE	512
-# define DEBUG 0
-# define SET 0
-# define GET 1
+# define DEBUG			1
+# define SET			0
+# define GET			1
 
 typedef enum		e_toktype
 {

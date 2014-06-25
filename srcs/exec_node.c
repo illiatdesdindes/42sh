@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:43:35 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 19:30:01 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 08:46:09 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int		exec_pipe(t_ast *ast, int fdin, int fdout)
 
 int		exec_node(t_ast *ast, int fdin, int fdout)
 {
+	if (ast == NULL)
+		return (0);
 	if (ast->type == SEMIC)
 		exec_semic(ast);
 	if (ast->type == PIPE)
