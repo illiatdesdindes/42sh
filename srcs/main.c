@@ -26,6 +26,18 @@ void	init_shell(int ac, char **av, char **env)
 	error_if(env[0] == NULL, "Can't launch with an empty environment");
 	copyenv(env);
 	stdio_init_dup();
+	signal(SIGINT, &sig_handler);
+}
+
+void	ret_check(int ret)
+{
+	if (ret == -1)
+		ft_putstr("stdin read failure\n");
+	else if (ret == 0)
+	{
+		ft_putstr("Bye!\n");
+		exit(0);
+	}
 }
 
 int		main(int argc, char **argv, char **env)
@@ -39,8 +51,7 @@ int		main(int argc, char **argv, char **env)
 	while (1)
 	{
 		ft_putstr("$> ");
-		signal(SIGINT, &sig_handler);
-		error_if((ret = get_next_line(0, &line)) == -1, "stdin read failure\n");
+		ret_check(ret = get_next_line(0, &line));
 		if (line != NULL && *line != '\0')
 		{
 			tokens = lexer(line);
