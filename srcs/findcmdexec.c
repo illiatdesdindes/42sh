@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 15:54:19 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 15:54:22 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:05:19 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern char	**g_environ;
 
-int		execcmd(char *file, char **av)
+int		execcmd(char *file, char **av, t_pipe pipes)
 {
 	int		state;
 	pid_t	pid;
@@ -22,6 +22,12 @@ int		execcmd(char *file, char **av)
 	pid = fork();
 	if (pid == 0)
 	{
+		close(pipes.in[1]);
+		close(pipes.out[0]);
+		if (pipes.in[0] != STDIN_FILENO)
+			dup2(pipes.in[0], STDIN_FILENO);
+		if (pipes.out[1] != STDOUT_FILENO)
+			dup2(pipes.out[1], STDOUT_FILENO);
 		execve(file, av, g_environ);
 		ft_printf("an error occured while launching %s\n", file);
 		exit(-1);
@@ -30,17 +36,21 @@ int		execcmd(char *file, char **av)
 	{
 		waitpid(pid, &state, 0);
 		returncmd(WEXITSTATUS(state), 1);
+		if (pipes.in[0] != STDIN_FILENO)
+			close(pipes.in[0]);
+		if (pipes.out[1] != STDOUT_FILENO)
+			close(pipes.out[1]);
 	}
 	return (0);
 }
 
-int		testaccessandlaunch(char *file, char **av, char **path)
+int		testaccessandlaunch(char *file, char **av, char **path, t_pipe pipes)
 {
 	if (access(file, F_OK) == 0)
 	{
 		if (access(file, X_OK) == 0)
 		{
-			execcmd(file, av);
+			execcmd(file, av, pipes);
 			freefindcmd(path, file);
 			return (0);
 		}
@@ -50,7 +60,7 @@ int		testaccessandlaunch(char *file, char **av, char **path)
 	return (1);
 }
 
-int		findcmd(char **av)
+int		findcmd(char **av, t_pipe pipes)
 {
 	int		i;
 	char	**path;
@@ -60,7 +70,7 @@ int		findcmd(char **av)
 	i = -1;
 	ret = 2;
 	if (contentpath(*av))
-		ret = testaccessandlaunch(ft_strdup(*av), av, NULL);
+		ret = testaccessandlaunch(ft_strdup(*av), av, NULL, pipes);
 	if (ret == 0 || ret == -1)
 		return (ret);
 	if (ret == 1 && ft_printf("no such file or directory: %s\n", *av))
@@ -69,7 +79,7 @@ int		findcmd(char **av)
 	while (path[++i])
 	{
 		file = joinwith(path[i], *av, "/");
-		ret = testaccessandlaunch(file, av, path);
+		ret = testaccessandlaunch(file, av, path, pipes);
 		if (ret == 0 || ret == -1)
 			return (ret);
 		free(file);

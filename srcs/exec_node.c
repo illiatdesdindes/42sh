@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:43:35 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 08:46:09 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:15:34 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,56 @@
 
 int		exec_semic(t_ast *ast)
 {
-	exec_node(ast->left, stdin_get(), stdout_get());
-	exec_node(ast->right, stdin_get(), stdout_get());
+	t_pipe	pipes;
+
+	pipes.in[0] = STDIN_FILENO;
+	pipes.in[1] = -1;
+	pipes.out[0] = -1;
+	pipes.out[1] = STDOUT_FILENO;
+	exec_node(ast->left, pipes);
+	exec_node(ast->right, pipes);
 	return (0);
 }
 
-int		exec_string(t_ast *ast, int fdin, int fdout)
+int		exec_string(t_ast *ast, t_pipe pipes)
 {
 	char	**av;
 
-	error_if(dup2(fdin, STDIN_FILENO) == -1, "dup2 fdin failed");
-	error_if(dup2(fdout, STDOUT_FILENO) == -1, "dup2 fdout failed");
 	av = ft_strsplitquote(ast->str, " \t");
 	if (!isbuiltin(av))
-		findcmd(av);
+		findcmd(av, pipes);
 	ft_strvdel(&av);
 	return (1);
 }
 
-int		exec_pipe(t_ast *ast, int fdin, int fdout)
+int		exec_pipe(t_ast *ast, t_pipe pipes)
 {
 	int		fildes[2];
+	t_pipe	pipes2;
 
 	error_if(pipe(fildes) == -1, "pipe() failed");
-	exec_node(ast->left, fdin, fildes[1]);
-	exec_node(ast->right, fildes[0], fdout);
+	pipes2.in[0] = fildes[0];
+	pipes2.in[1] = fildes[1];
+	pipes2.out[0] = pipes.out[0];
+	pipes2.out[1] = pipes.out[1];
+	pipes.out[0] = fildes[0];
+	pipes.out[1] = fildes[1];
+	exec_node(ast->left, pipes);
+	exec_node(ast->right, pipes2);
 	close(fildes[0]);
 	close(fildes[1]);
 	return (1);
 }
 
-int		exec_node(t_ast *ast, int fdin, int fdout)
+int		exec_node(t_ast *ast, t_pipe pipes)
 {
 	if (ast == NULL)
 		return (0);
 	if (ast->type == SEMIC)
 		exec_semic(ast);
 	if (ast->type == PIPE)
-		exec_pipe(ast, fdin, fdout);
+		exec_pipe(ast, pipes);
 	if (ast->type == STRING)
-		exec_string(ast, fdin, fdout);
+		exec_string(ast, pipes);
 	return (1);
 }

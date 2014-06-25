@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:19:15 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:39:47 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/wait.h>
 
 # define GETCWD_SIZE	512
-# define DEBUG			1
+# define DEBUG			0
 # define MULTI_LINE		0
 # define SET			0
 # define GET			1
@@ -50,9 +50,15 @@ typedef struct		s_ast
 	struct s_ast	*right;
 }					t_ast;
 
+typedef struct		s_pipe
+{
+	int				in[2];
+	int				out[2];
+}					t_pipe;
+
 char				**ft_strsplitquote(char const *s, char *splitchars);
 int					contentpath(char *file);
-int					findcmd(char **av);
+int					findcmd(char **av, t_pipe pipes);
 void				freestrv(char **strv);
 void				free_token_ast(t_tok **tok, t_ast **ast);
 void				strvtrim(char **strv);
@@ -82,14 +88,16 @@ void				print_tokens(t_tok *tokens);
 void				print_ast(t_ast *ast);
 int					returncmd(int n, int set);
 t_ast				*parser(t_tok *token, t_ast *ast);
-t_ast				*syntax(t_tok *token, t_ast *ast);
+int					syntax(t_tok *token);
 t_ast				*ast_new(t_tok *token);
 t_ast				*ast_root(t_ast *ast);
-int					exec_node(t_ast *ast, int fdin, int fdout);
+int					exec_node(t_ast *ast, t_pipe pipes);
 void				stdio_init_dup();
 int					stdin_get();
 int					stdout_get();
-
 char				**g_environ;
+void				sig_handler(int sig);
+void				putprompt(void);
+void				bi_cd_deleg3(char *get);
 
 #endif
