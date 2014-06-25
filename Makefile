@@ -6,7 +6,7 @@
 #    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/06/24 16:44:29 by svachere         ###   ########.fr        #
+#    Updated: 2014/06/25 17:46:27 by svachere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 SRCSFILES = main.c \
 			env.c \
+			copyenv.c \
 	 		pathmanip.c \
 			findcmdexec.c \
 			free.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 17:07:42 by svachere          #+#    #+#             */
-/*   Updated: 2014/05/21 19:29:52 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 16:08:18 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		isopsymb(char c)
 t_tok	*lexer(char *line)
 {
 	int		i;
+	char	*tmp;
 	t_tok	*tokens;
 
 	i = -1;
@@ -44,7 +45,10 @@ t_tok	*lexer(char *line)
 		else if (line[i] == '|')
 			token_add(&tokens, PIPE, NULL);
 		else if (!isspce(line[i]))
-			token_add_string(&tokens, line + i, &i);
+		{
+			tmp = ft_strdup(line + i);
+			token_add_string(&tokens, &tmp, &i);
+		}
 	}
 	return (tokens);
 }
