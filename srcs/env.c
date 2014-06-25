@@ -14,24 +14,34 @@
 
 extern char	**g_environ;
 
-int		copyenv(char **env)
+static size_t		ft_strleneg(char *str)
 {
-	int		len;
-	char	**newenv;
+	size_t	i;
 
-	len = 0;
-	while (env[len])
-		len++;
-	if ((newenv = (char**)malloc(sizeof(char*) * len + 1)) == NULL)
-		return (-1);
-	newenv[len] = NULL;
-	while (len--)
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	return (i);
+}
+
+static char	*ft_streg(char *str)
+{
+	int	i;
+	char *ret;
+
+	i = 0;
+
+	while (str[i] && str[i] != '=')
+		i++;
+	ret = ft_strnew(i + 1);
+	i = 0;
+	while (str[i] && str[i] != '=')
 	{
-		if ((newenv[len] = ft_strdup(env[len])) == NULL)
-			return (-1);
+		ret[i] = str[i];
+		i++;
 	}
-	g_environ = newenv;
-	return (0);
+	ret[i]= '\0';
+	return (ret);
 }
 
 char	*ft_getenv(char *name)
@@ -41,7 +51,8 @@ char	*ft_getenv(char *name)
 	i = -1;
 	while (g_environ[++i])
 	{
-		if (ft_strstr(g_environ[i], name))
+		if (ft_strstr(ft_streg(g_environ[i]), name) 
+				&& (ft_strlen(name) == ft_strleneg(g_environ[i])))
 			return (ft_strchr(g_environ[i], '=') + 1);
 	}
 	return (NULL);
@@ -66,7 +77,9 @@ int		ft_setenv(char *name, char *value, int overwrite)
 		while (g_environ[++i])
 		{
 			if (ft_strstr(g_environ[i], name))
+			{
 				return (strvput(g_environ + i, joinwith(name, value, "=")));
+			}
 		}
 	}
 	else
@@ -85,7 +98,8 @@ int		ft_unsetenv(char *name, int i, int find)
 	{
 		if (find)
 			g_environ[i - 1] = g_environ[i];
-		else if (ft_strstr(g_environ[i], name))
+		else if (ft_strstr(ft_streg(g_environ[i]), name)
+				&& (ft_strlen(name) == ft_strleneg(g_environ[i])))
 		{
 			find = 1;
 			free(g_environ[i]);
