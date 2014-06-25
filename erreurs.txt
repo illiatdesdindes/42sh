@@ -1,0 +1,24 @@
+Description : [bug] CTRL + C & CTRL + D non focntionnel (ajouter une partie de l'ancien 42sh, sur les signaux)
+
+-------------------------------------------------------------------
+
+Description : [segfault] Un SEMIC sans enfant entraine une erreur.
+Correction : exec_node.c
+	if (ast == NULL)
+		return (0);
+
+$>  	quote = (quote <= 0 && *(str + i) == quote) ? -1 : quote;
+
+#####      tokens     #####
+[STRING quote = (quote <= 0 ], [AND], [STRING *(str + i) == quote) ? -1 : quote], [SEMIC]
+
+Process 5940 stopped
+* thread #1: tid = 0x1855f, 0x00000001000029d6 patatesh`exec_node(ast=0x0000000000000000, fdin=14, fdout=15) + 22 at exec_node.c:49, queue = 'com.apple.main-thread, stop reason = EXC_BAD_ACCESS (code=1, address=0x0)
+    frame #0: 0x00000001000029d6 patatesh`exec_node(ast=0x0000000000000000, fdin=14, fdout=15) + 22 at exec_node.c:49
+   46
+   47  	int		exec_node(t_ast *ast, int fdin, int fdout)
+   48  	{
+-> 49  		if (ast->type == SEMIC)
+   50  			exec_semic(ast);
+   51  		if (ast->type == PIPE)
+   52  			exec_pipe(ast, fdin, fdout);
