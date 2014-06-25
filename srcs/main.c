@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 18:52:50 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 14:03:49 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 void	browse(t_ast *ast)
 {
+	t_pipe	pipes;
+
 	print_ast(ast);
 	if (ast != NULL)
-		exec_node(ast, stdin_get(), stdout_get());
+	{
+		pipes.in[0] = stdin_get();
+		pipes.in[1] = -1;
+		pipes.out[0] = -1;
+		pipes.out[1] = stdout_get();
+		exec_node(ast, pipes);
+	}
 }
 
 void	sig_handler(int sig)

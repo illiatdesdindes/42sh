@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:43:35 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 19:30:01 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 13:56:28 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 int		exec_semic(t_ast *ast)
 {
-	exec_node(ast->left, stdin_get(), stdout_get());
-	exec_node(ast->right, stdin_get(), stdout_get());
+	t_pipe	pipes;
+
+	pipes.in[0] = stdin_get();
+	pipes.in[1] = -1;
+	pipes.out[0] = -1;
+	pipes.out[1] = stdout_get();
+	exec_node(ast->left, pipes);
+	exec_node(ast->right, pipes);
 	return (0);
 }
 
-int		exec_string(t_ast *ast, int fdin, int fdout)
+int		exec_string(t_ast *ast, t_pipe pipes)
 {
 	char	**av;
 
@@ -32,25 +38,23 @@ int		exec_string(t_ast *ast, int fdin, int fdout)
 	return (1);
 }
 
-int		exec_pipe(t_ast *ast, int fdin, int fdout)
+int		exec_pipe(t_ast *ast, t_pipe pipes)
 {
 	int		fildes[2];
 
 	error_if(pipe(fildes) == -1, "pipe() failed");
-	exec_node(ast->left, fdin, fildes[1]);
-	exec_node(ast->right, fildes[0], fdout);
-	close(fildes[0]);
-	close(fildes[1]);
+	exec_node(ast->left, );
+	exec_node(ast->right, );
 	return (1);
 }
 
-int		exec_node(t_ast *ast, int fdin, int fdout)
+int		exec_node(t_ast *ast, t_pipe pipes)
 {
 	if (ast->type == SEMIC)
 		exec_semic(ast);
 	if (ast->type == PIPE)
-		exec_pipe(ast, fdin, fdout);
+		exec_pipe(ast, pipes);
 	if (ast->type == STRING)
-		exec_string(ast, fdin, fdout);
+		exec_string(ast, pipes);
 	return (1);
 }
