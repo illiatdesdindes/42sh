@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 08:37:00 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:19:15 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define GETCWD_SIZE	512
 # define DEBUG			1
+# define MULTI_LINE		0
 # define SET			0
 # define GET			1
 
@@ -56,6 +57,7 @@ void				freestrv(char **strv);
 void				free_token_ast(t_tok **tok, t_ast **ast);
 void				strvtrim(char **strv);
 int					isbuiltin(char **av);
+char				*joinlines(char **s1, char **s2, int pfree);
 char				*joinwith(char *path, char *file, char *join);
 void				freefindcmd(char **path, char *file);
 char				**get_path();
@@ -75,7 +77,7 @@ void				bi_test(char **av);
 t_tok				*lexer(char *line);
 int					isopsymb(char c);
 t_tok				*token_add(t_tok **tokens, t_toktype toktype, char *str);
-t_tok				*token_add_string(t_tok **tokens, char *str, int *ilexer);
+t_tok				*token_add_string(t_tok **tokens, char **str, int *ilexer);
 void				print_tokens(t_tok *tokens);
 void				print_ast(t_ast *ast);
 int					returncmd(int n, int set);

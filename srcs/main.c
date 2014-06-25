@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 18:52:50 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/25 15:37:40 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		main(int argc, char **argv, char **env)
 	t_ast	*ast;
 
 	init_shell(argc, argv, env);
-	while (1)
+	while (42)
 	{
 		ft_putstr("$> ");
 		signal(SIGINT, &sig_handler);
@@ -58,7 +58,7 @@ int		main(int argc, char **argv, char **env)
 			browse(ast);
 			free_token_ast(&tokens, &ast);
 		}
-		free(line);
+		ft_strdel(&line);
 	}
 	return (0);
 }
