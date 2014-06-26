@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/26 13:21:08 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 13:51:41 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 13:55:16 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	bi_exit(char **av)
 {
 	(void)av;
 	if (av[1]) {
-		if (!ft_isalpha(av[1][0])
-				|| av[1][0] == '-' || av[1][0] == '+')
+		if (!ft_isalpha(av[1][0]) || av[1][0] == '-' || av[1][0] == '+')
 		{
 			ft_printf("bad math expression: %s\n", av[1]);
 			exit(0);
