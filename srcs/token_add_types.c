@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/28 12:55:09 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:18:50 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:58:24 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_tok	*token_add_string(t_tok **tokens, char **str, int *ilexer)
 		repeat = count_quotes(*str);
 	}
 	tok = token_add(tokens, STRING, ft_strsub(*str, 0, i));
+	ft_strdel(str);
 	*ilexer += i - 1;
 	return (tok);
 }
