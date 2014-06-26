@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 15:38:20 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 16:27:49 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ void				sig_handler(int sig);
 void				putprompt(void);
 void				bi_cd_deleg3(char *get);
 int					returnrun(int n, int set);
+char				*returnflare(char *str);
 
 #endif
