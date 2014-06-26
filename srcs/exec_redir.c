@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 14:30:39 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 20:55:08 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 21:23:26 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		exec_redout(t_ast *ast, t_pipe pipes)
 		exec_node(ast->right, pipes);
 	if (pipeup[1] != STDOUT_FILENO)
 	{
+		chmod(ast->str, S_IRWXU | S_IRWXG | S_IROTH);
 		fd = open(ast->str, O_RDONLY);
 		dup2(fd, pipeup[0]);
 		close(pipeup[1]);
@@ -81,6 +82,7 @@ int		exec_redapp(t_ast *ast, t_pipe pipes)
 		exec_node(ast->right, pipes);
 	if (pipeup[1] != STDOUT_FILENO)
 	{
+		chmod(ast->str, S_IRWXU | S_IRWXG | S_IROTH);
 		fd = open(ast->str, O_RDONLY);
 		dup2(fd, pipeup[0]);
 		close(pipeup[1]);
