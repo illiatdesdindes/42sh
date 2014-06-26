@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/26 15:54:12 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 09:32:36 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:49:46 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,20 @@ static char		*ft_streg(char *str)
 
 char			*ft_getenv(char *name)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = -1;
 	while (g_environ[++i])
 	{
-		if (ft_strstr(ft_streg(g_environ[i]), name)
+		tmp = ft_streg(g_environ[i]);
+		if (ft_strstr(tmp, name)
 				&& (ft_strlen(name) == ft_strleneg(g_environ[i])))
+		{
+			ft_strdel(&tmp);
 			return (ft_strchr(g_environ[i], '=') + 1);
+		}
+		ft_strdel(&tmp);
 	}
 	return (NULL);
 }
@@ -76,9 +82,7 @@ int				ft_setenv(char *name, char *value, int overwrite)
 		while (g_environ[++i])
 		{
 			if (ft_strstr(g_environ[i], name))
-			{
 				return (strvput(g_environ + i, joinwith(name, value, "=")));
-			}
 		}
 	}
 	else
@@ -101,14 +105,14 @@ int				ft_unsetenv(char *name, int i, int find)
 				&& (ft_strlen(name) == ft_strleneg(g_environ[i])))
 		{
 			find = 1;
-			free(g_environ[i]);
+			ft_strdel(&g_environ[i]);
 			g_environ[i] = NULL;
 		}
 	}
 	if (find == 1)
 	{
+		ft_strdel(&g_environ[i - 1]);
 		g_environ[i - 1] = NULL;
-		free(g_environ[i - 1]);
 	}
 	return (0);
 }
