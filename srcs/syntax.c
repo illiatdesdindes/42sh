@@ -6,16 +6,17 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:39:38 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 09:38:37 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 20:37:42 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh42.h>
 
+
 static int		syntax_notsemic(t_tok *token)
 {
-	if (token->prev == NULL || token->prev->type != STRING
-			|| token->next == NULL || token->next->type != STRING)
+	if (token->prev == NULL || !isstrredir(token->prev->type)
+			|| token->next == NULL || !isstrredir(token->next->type))
 	{
 		if (token->type == PIPE)
 			ft_putendl_fd("syntax error near '|'", STDERR_FILENO);
@@ -30,8 +31,8 @@ static int		syntax_notsemic(t_tok *token)
 
 static int		syntax_semic(t_tok *token)
 {
-	if ((token->prev != NULL && token->prev->type != STRING)
-			|| (token->next != NULL && token->next->type != STRING))
+	if ((token->prev != NULL && !isstrredir(token->prev->type))
+			|| (token->next != NULL && !isstrredir(token->next->type)))
 	{
 		ft_putendl_fd("syntax error near ';'", STDERR_FILENO);
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:39:15 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 18:01:29 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 20:35:04 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,6 @@ int		type_rank(enum e_toktype type)
 	if (type == AND || type == OR)
 		return (6);
 	return (7);
-}
-
-int		isredir(enum e_toktype type)
-{
-	if (type == REDIN || type == REDOUT || type == REDAPP)
-		return (1);
-	return (0);
-}
-
-int		isstringwithredir(t_tok *token, t_ast *ast)
-{
-	if (token->type == STRING && isredir(ast->type))
-		return (1);
-	return (0);
 }
 
 t_ast	*descend(t_tok *token, t_ast *ast)

@@ -6,11 +6,11 @@
 #    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/06/26 16:08:15 by svachere         ###   ########.fr        #
+#    Updated: 2014/06/26 20:35:25 by svachere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = patatesh
+NAME = 42sh
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 SRCSFILES = main.c \
@@ -24,6 +24,7 @@ SRCSFILES = main.c \
 			strvutils.c	\
 			bi_cd.c \
 			print.c \
+			is.c \
 			lexer.c \
 			token_add_types.c \
 			returncmd.c \

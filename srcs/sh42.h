@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 16:27:49 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 20:34:16 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 # define GETCWD_SIZE	512
-# define DEBUG			1
+# define DEBUG			0
 # define MULTI_LINE		0
 # define SINGLE_LINE	0
 # define SET			0
@@ -61,6 +62,9 @@ typedef struct		s_pipe
 }					t_pipe;
 
 int					isspce(char c);
+int					isredir(enum e_toktype type);
+int					isstringwithredir(t_tok *token, t_ast *ast);
+int					isstrredir(enum e_toktype type);
 char				**ft_strsplitquote(char const *s, char *splitchars);
 int					contentpath(char *file);
 int					findcmd(char **av, t_pipe pipes);
@@ -98,6 +102,7 @@ int					syntax(t_tok *token);
 t_ast				*ast_new(t_tok *token);
 t_ast				*ast_root(t_ast *ast);
 int					exec_node(t_ast *ast, t_pipe pipes);
+int					exec_redout(t_ast *ast, t_pipe pipes);
 void				stdio_init_dup();
 int					stdin_get();
 int					stdout_get();
