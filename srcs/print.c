@@ -6,21 +6,33 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 15:29:27 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 16:55:13 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh42.h>
 
+void	ast_put_str(t_ast *ast, int fd)
+{
+	if (ast->type == STRING)
+		ft_putstr_fd("STRING", fd);
+	if (ast->type == REDIN)
+		ft_putstr_fd("REDIN", fd);
+	if (ast->type == REDOUT)
+		ft_putstr_fd("REDOUT", fd);
+	if (ast->type == REDAPP)
+		ft_putstr_fd("REDAPP", fd);
+	ft_putstr_fd(" : ", fd);
+	ft_putstr_fd(ast->str, fd);
+}
+
 void	ast_put_name(t_ast *ast, int fd)
 {
 	ft_putstr_fd("\"name\": ", fd);
 	ft_putchar_fd('"', fd);
-	if (ast && ast->type == STRING)
-	{
-		ft_putstr_fd("STRING : ", fd);
-		ft_putstr_fd(ast->str, fd);
-	}
+	if (ast && (ast->type == STRING || ast->type == REDIN 
+				|| ast->type == REDOUT|| ast->type == REDAPP))
+		ast_put_str(ast, fd);
 	if (ast && ast->type == PIPE)
 		ft_putstr_fd("PIPE", fd);
 	if (ast && ast->type == AND)

@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:39:15 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 14:19:12 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 18:01:29 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ void	insert_right(t_tok *token, t_ast *ast)
 	newast->up = ast;
 }
 
+void	insert_left(t_tok *token, t_ast *ast)
+{
+	t_ast	*newast;
+
+	newast = ast_new(token);
+	ast->left = newast;
+	newast->up = ast;
+}
+
 int		type_rank(enum e_toktype type)
 {
 	if (type == STRING)
@@ -50,13 +59,36 @@ int		type_rank(enum e_toktype type)
 	return (7);
 }
 
+int		isredir(enum e_toktype type)
+{
+	if (type == REDIN || type == REDOUT || type == REDAPP)
+		return (1);
+	return (0);
+}
+
+int		isstringwithredir(t_tok *token, t_ast *ast)
+{
+	if (token->type == STRING && isredir(ast->type))
+		return (1);
+	return (0);
+}
+
 t_ast	*descend(t_tok *token, t_ast *ast)
 {
 	if (ast == NULL)
 		return (ast_new(token));
-	if (type_rank(token->type) < type_rank(ast->type) && ast->right != NULL)
+	if ((isredir(token->type) || isstringwithredir(token, ast))
+			&& type_rank(token->type) < type_rank(ast->type)
+			&& ast->left != NULL)
+		descend(token, ast->left);
+	else if (!isredir(token->type) && type_rank(token->type) < type_rank(ast->type)
+			&& ast->right != NULL)
 		descend(token, ast->right);
-	else if (type_rank(token->type) < type_rank(ast->type)
+	else if (isredir(token->type)
+			&& type_rank(token->type) < type_rank(ast->type)
+			&& ast->left == NULL)
+		insert_left(token, ast);
+	else if (!isredir(token->type) && type_rank(token->type) < type_rank(ast->type)
 			&& ast->right == NULL)
 		insert_right(token, ast);
 	else
