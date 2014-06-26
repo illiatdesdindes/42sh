@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 20:49:59 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 22:08:49 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define SINGLE_LINE	0
 # define SET			0
 # define GET			1
+# define TMPFILE		"sdf87g3fh43d5hs"
 
 typedef enum		e_toktype
 {
@@ -104,6 +105,7 @@ t_ast				*ast_root(t_ast *ast);
 int					exec_node(t_ast *ast, t_pipe pipes);
 int					exec_redout(t_ast *ast, t_pipe pipes);
 int					exec_redapp(t_ast *ast, t_pipe pipes);
+int					exec_redin(t_ast *ast, t_pipe pipes);
 void				stdio_init_dup();
 int					stdin_get();
 int					stdout_get();
