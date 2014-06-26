@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:39:38 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:56:31 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:38:37 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static int		syntax_notsemic(t_tok *token)
 			|| token->next == NULL || token->next->type != STRING)
 	{
 		if (token->type == PIPE)
-			ft_putendl("syntax error near '|'");
+			ft_putendl_fd("syntax error near '|'", STDERR_FILENO);
 		else if (token->type == AND)
-			ft_putendl("syntax error near '&&'");
+			ft_putendl_fd("syntax error near '&&'", STDERR_FILENO);
 		else
-			ft_putendl("syntax error near '||'");
+			ft_putendl_fd("syntax error near '||'", STDERR_FILENO);
 		return (0);
 	}
 	return (1);
@@ -33,7 +33,7 @@ static int		syntax_semic(t_tok *token)
 	if ((token->prev != NULL && token->prev->type != STRING)
 			|| (token->next != NULL && token->next->type != STRING))
 	{
-		ft_putendl("syntax error near ';'");
+		ft_putendl_fd("syntax error near ';'", STDERR_FILENO);
 		return (0);
 	}
 	return (1);

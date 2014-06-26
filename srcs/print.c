@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 08:43:30 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:39:35 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,24 @@ void	print_ast(t_ast *ast)
 
 void	print_tokens(t_tok *tokens)
 {
-	ft_putstr("\n#####      tokens     #####\n");
+	ft_putstr_fd("\n#####      tokens     #####\n", STDERR_FILENO);
 	while (tokens)
 	{
-		ft_putchar('[');
+		ft_putchar_fd('[', STDERR_FILENO);
 		if (tokens->type == AND)
-			ft_putstr("AND");
+			ft_putstr_fd("AND", STDERR_FILENO);
 		if (tokens->type == OR)
-			ft_putstr("OR");
+			ft_putstr_fd("OR", STDERR_FILENO);
 		if (tokens->type == PIPE)
-			ft_putstr("PIPE");
+			ft_putstr_fd("PIPE", STDERR_FILENO);
 		if (tokens->type == SEMIC)
-			ft_putstr("SEMIC");
+			ft_putstr_fd("SEMIC", STDERR_FILENO);
 		if (tokens->type == STRING)
 			ft_printf("STRING %s", tokens->str);
-		ft_putchar(']');
+		ft_putchar_fd(']', STDERR_FILENO);
 		if (tokens->next)
-			ft_putstr(", ");
+			ft_putstr_fd(", ", STDERR_FILENO);
 		tokens = tokens->next;
 	}
-	ft_putstr("\n\n");
+	ft_putstr_fd("\n\n", STDERR_FILENO);
 }

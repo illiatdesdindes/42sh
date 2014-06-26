@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/26 15:54:12 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:52:18 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:32:36 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int				ft_setenv(char *name, char *value, int overwrite)
 
 	if (!name || name == NULL || !value || value == NULL)
 	{
-		ft_putendl("Syntax error. Example: setenv key value");
+		ft_putendl_fd("Syntax error. Example: setenv key value", STDERR_FILENO);
 		return (1);
 	}
 	find = ft_getenv(name);
@@ -90,7 +90,7 @@ int				ft_unsetenv(char *name, int i, int find)
 {
 	if (!name || name == NULL)
 	{
-		ft_putendl("Syntax error. Example: unsetenv key");
+		ft_putendl_fd("Syntax error. Example: unsetenv key", STDERR_FILENO);
 		return (1);
 	}
 	while (g_environ[++i])
