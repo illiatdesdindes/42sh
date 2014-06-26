@@ -16,7 +16,7 @@ void	browse(t_ast *ast)
 {
 	t_pipe	pipes;
 
-	//print_ast(ast);
+	print_ast(ast);
 	if (ast != NULL)
 	{
 		pipes.in[0] = STDIN_FILENO;
