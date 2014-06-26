@@ -51,7 +51,7 @@ void	print_ast(t_ast *ast)
 {
 	int		fd;
 
-	fd = open("BTreeViewer/flare.json", O_WRONLY | O_CREAT | O_TRUNC);
+	fd = open(returnflare(NULL), O_WRONLY | O_CREAT | O_TRUNC);
 	error_if(fd == -1, "can't open flare.json\n");
 	ft_putstr_fd("AST_JSON = ", fd);
 	ast_recur(ast, fd);

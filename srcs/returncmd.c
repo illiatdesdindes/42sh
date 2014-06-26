@@ -29,3 +29,12 @@ int		returnrun(int n, int set)
 	ret = set ? n : ret;
 	return (ret);
 }
+
+char	*returnflare(char *str)
+{
+	static char	*path;
+
+	if (path == NULL && str != NULL)
+		path = ft_strjoin(str, "/BTreeViewer/flare.json");
+	return (path);
+}

@@ -6,7 +6,7 @@
 #    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/06/25 17:46:27 by svachere         ###   ########.fr        #
+#    Updated: 2014/06/26 16:08:15 by svachere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCSFILES = main.c \
 			syntax.c \
 			parser.c \
 			exec_node.c \
+			exec_redir.c \
 			ft_strsplitquote.c \
 			stdin_stdout.c \
 			signal.c \

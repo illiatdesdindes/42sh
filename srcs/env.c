@@ -99,15 +99,13 @@ int				ft_unsetenv(char *name, int i, int find)
 		ft_putendl_fd("Syntax error. Example: unsetenv key", STDERR_FILENO);
 		return (1);
 	}
-	while (g_environ[++i])
+	while (g_environ[++i] && (tmp = ft_streg(g_environ[i])))
 	{
-		tmp = ft_streg(g_environ[i]);
 		if (find)
 			g_environ[i - 1] = g_environ[i];
 		else if (ft_strstr(tmp, name)
-				&& (ft_strlen(name) == ft_strleneg(g_environ[i])))
+				&& (ft_strlen(name) == ft_strleneg(g_environ[i])) && (find = 1))
 		{
-			find = 1;
 			ft_strdel(&g_environ[i]);
 			g_environ[i] = NULL;
 		}

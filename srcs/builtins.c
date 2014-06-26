@@ -27,8 +27,10 @@ void	bi_printenv(char **av)
 void	bi_exit(char **av)
 {
 	(void)av;
-	if (av[1]) {
-		if (!ft_isalpha(av[1][0]) || av[1][0] == '-' || av[1][0] == '+')
+	if (av[1])
+	{
+		if (!ft_isalpha(av[1][0]) && !ft_isdigit(av[1][0])
+				&& av[1][0] != '-' && av[1][0] != '+')
 		{
 			ft_printf("bad math expression: %s\n", av[1]);
 			exit(0);
@@ -36,6 +38,23 @@ void	bi_exit(char **av)
 		exit(ft_atoi(av[1]));
 	}
 	exit(0);
+}
+
+static int	echo(char **av, int i, int j)
+{
+	if (av[i][j] == '\\' && av[i][j + 1] == 'n')
+	{
+		ft_putchar('\n');
+		j++;
+	}
+	else if (av[i][j] == '$' && av[i][j + 1] == '$')
+	{
+		ft_putnbr(getpid());
+		j++;
+	}
+	else
+		ft_putchar(av[i][j]);
+	return (j);
 }
 
 void	bi_echo(char **av)
@@ -51,13 +70,7 @@ void	bi_echo(char **av)
 			ft_putchar(' ');
 		while (av[i][j])
 		{
-			if (av[i][j] == '\\' && av[i][j + 1] == 'n')
-			{
-				ft_putchar('\n');
-				j++;
-			}
-			else
-				ft_putchar(av[i][j]);
+			j = echo(av, i, j);
 			j++;
 		}
 		i++;
