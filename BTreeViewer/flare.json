@@ -1,1 +1,1 @@
-AST_JSON = {"name": "PIPE", "children" : [{"name": "STRING : cat"} , {"name": "PIPE", "children" : [{"name": "STRING : wc "} , {"name": "STRING : ls -la "}] }] };
+AST_JSON = {"name": "STRING : exit"};

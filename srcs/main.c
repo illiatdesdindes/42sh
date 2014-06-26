@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:22:08 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:44:45 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	init_shell(int ac, char **av, char **env)
 void	ret_check(int ret)
 {
 	if (ret == -1)
-		ft_putstr("stdin read failure\n");
+		ft_putstr_fd("stdin read failure\n", STDERR_FILENO);
 	else if (ret == 0)
 	{
-		ft_putstr("Bye!\n");
+		ft_putstr_fd("Bye!\n", STDERR_FILENO);
 		exit(0);
 	}
 }
@@ -56,7 +56,7 @@ int		main(int argc, char **argv, char **env)
 	t_ast	*ast;
 
 	init_shell(argc, argv, env);
-	while (1)
+	while (42)
 	{
 		putprompt();
 		ret_check(ret = get_next_line(0, &line));
@@ -71,7 +71,7 @@ int		main(int argc, char **argv, char **env)
 			}
 			free_token_ast(&tokens, &ast);
 		}
-		free(line);
+		ft_strdel(&line);
 	}
 	return (0);
 }

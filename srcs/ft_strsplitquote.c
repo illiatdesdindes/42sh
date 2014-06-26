@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 12:19:30 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/24 17:54:42 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:53:44 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ static int		isin(char c, char *str, int reset)
 	dbquote = (reset == 1) ? 0 : dbquote;
 	if (reset == 1)
 		return (0);
-	if (reset != -1 && !dbquote && c == '\'')
-		quote = quote ? 0 : 1;
-	else if (reset != -1 && !quote && c == '"')
-		dbquote = dbquote ? 0 : 1;
+	else if (reset != -1)
+	{
+		if (!dbquote && c == '\'')
+			quote = quote ? 0 : 1;
+		else if (!quote && c == '"')
+			dbquote = dbquote ? 0 : 1;
+	}
 	while (*str)
 	{
 		if ((reset == -1 || (!quote && !dbquote)) && c == *str)
@@ -47,7 +50,7 @@ static char		*ft_remove_quotes(char *str)
 		i = -1;
 		j = -1;
 		quote = 0;
-		while (*(str + (++i)))
+		while (((quote == -1 && !(quote = 0)) || quote >= 0) && *(str + (++i)))
 		{
 			if (*(str + i) != '\'' && *(str + i) != '"')
 				*(clean + (++j)) = *(str + i);
@@ -55,7 +58,7 @@ static char		*ft_remove_quotes(char *str)
 				*(clean + (++j)) = *(str + i);
 			else if (quote == '"' && *(str + i) == '\'')
 				*(clean + (++j)) = *(str + i);
-			quote = (quote <= 0 && *(str + i) == quote) ? -1 : quote;
+			quote = (quote > 0 && *(str + i) == quote) ? -1 : quote;
 			if (!quote && (*(str + i) == '\'' || *(str + i) == '"'))
 				quote = *(str + i);
 		}
@@ -70,7 +73,7 @@ static char		*ft_extract_word(char *s, char *splitchars)
 	char		*word;
 
 	len = 0;
-	while (!isin(s[len], splitchars, 0) && s[len] != '\0')
+	while (!isin(s[len], splitchars, len ? 0 : -1) && s[len] != '\0')
 		len++;
 	if (!(word = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
