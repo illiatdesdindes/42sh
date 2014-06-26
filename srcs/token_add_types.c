@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/28 12:55:09 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 09:58:24 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 16:25:15 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,32 @@ int		*count_quotes(char *str)
 	save[0] = count;
 	save[1] = quote;
 	return (save);
+}
+
+int		token_add_red(t_tok **tokens, char *str, int *i)
+{
+	int			ret;
+	int			org;
+	int			pos;
+	char		*cmd;
+
+	ret = 0;
+	org = (*(str + 1) == '<' || *(str + 1) == '>') ? 1 : 0;
+	while (isspce(*(str + (++org))))
+		pos = org + 1;
+	while (*(str + pos) && !(isopsymb(*(str + pos)) || isspce(*(str + pos))))
+		pos++;
+	cmd = ft_strsub(str, org, pos - org);
+	if (*str == '>' && *(str + 1) == '>' && ++ret)
+		token_add(tokens, REDAPP, cmd);
+	else if (*str == '>' && ++ret)
+		token_add(tokens, REDOUT, cmd);
+	else if (*str == '<' && ++ret)
+		token_add(tokens, REDIN, cmd);
+	while (isspce(*(str + (pos))))
+		pos++;
+	*i += pos - 1;
+	return (ret);
 }
 
 t_tok	*token_add_string(t_tok **tokens, char **str, int *ilexer)

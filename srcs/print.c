@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 09:39:35 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 15:29:27 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,17 @@ void	print_tokens(t_tok *tokens)
 			ft_putstr_fd("PIPE", STDERR_FILENO);
 		if (tokens->type == SEMIC)
 			ft_putstr_fd("SEMIC", STDERR_FILENO);
+		if (tokens->type == REDIN)
+			ft_printf("REDIN %s", tokens->str);
+		if (tokens->type == REDOUT)
+			ft_printf("REDOUT %s", tokens->str);
+		if (tokens->type == REDAPP)
+			ft_printf("REDAPP %s", tokens->str);
 		if (tokens->type == STRING)
 			ft_printf("STRING %s", tokens->str);
 		ft_putchar_fd(']', STDERR_FILENO);
-		if (tokens->next)
+		if ((tokens = tokens->next))
 			ft_putstr_fd(", ", STDERR_FILENO);
-		tokens = tokens->next;
 	}
 	ft_putstr_fd("\n\n", STDERR_FILENO);
 }

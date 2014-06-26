@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:43:35 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 18:25:26 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 16:28:05 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		exec_semic(t_ast *ast)
 	pipes.out[1] = STDOUT_FILENO;
 	exec_node(ast->left, pipes);
 	exec_node(ast->right, pipes);
-	return (0);
+	return (1);
 }
 
 int		exec_string(t_ast *ast, t_pipe pipes)
@@ -31,7 +31,10 @@ int		exec_string(t_ast *ast, t_pipe pipes)
 	int		ret;
 
 	ret = 1;
-	av = ft_strsplitquote(ast->str, " \t");
+	if (SINGLE_LINE)
+		av = ft_strsplitquote(ast->str, " \t");
+	else
+		av = ft_strsplit(ast->str, " \t");
 	if (!isbuiltin(av))
 		ret = findcmd(av, pipes);
 	if (ret != 0)

@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:38:44 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 14:38:52 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 14:28:44 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_ast	*ast_new(t_tok *token)
 	ast->left = NULL;
 	ast->right = NULL;
 	ast->str = NULL;
-	if (token->type == STRING)
-		ast->str = ft_strdup(token->str);
+	ast->str = ft_strdup(token->str);
 	return (ast);
 }
 
