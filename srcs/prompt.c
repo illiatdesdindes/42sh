@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alepinoy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 16:06:07 by alepinoy          #+#    #+#             */
-/*   Updated: 2014/06/25 16:06:12 by alepinoy         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:24:46 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,17 @@ void	putprompt(void)
 {
 	char	*info;
 	char	*pwd;
+	char	*tmp;
 	char	host[1024];
 
-	host[1023] = '\0';
-	info = (char *)malloc(sizeof(char) * ft_strlen(ft_getenv("USER")));
+	ft_bzero(host, 1024);
 	info = ft_getenv("USER");
-	ft_putstr("\x1B[32m");
-	ft_putstr(info);
-	ft_putstr("\033[0m:\x1B[34m");
+	ft_printf("\x1B[32m%s\033[0m:\x1B[34m", info);
 	gethostname(host, 1023);
-	ft_putstr(get_host(host));
-	ft_putstr("\x1B[31m @ ");
-	pwd = (char *)malloc(sizeof(char) * ft_strlen(ft_getenv("PWD")));
 	pwd = ft_getenv("PWD");
-	info = (char *)malloc(sizeof(char) * ft_strlen(pwd));
-	ft_putstr("\x1B[33m");
 	info = get_last(pwd);
-	ft_putstr(info);
-	ft_putstr("\033[0m ~> ");
+	tmp = get_host(host);
+	ft_printf("%s\x1B[31m @ \x1B[33m%s\033[0m ~> ", tmp, info);
+	ft_strdel(&info);
+	ft_strdel(&tmp);
 }
