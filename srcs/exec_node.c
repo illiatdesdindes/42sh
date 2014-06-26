@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:43:35 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 18:19:38 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 20:47:51 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int		exec_node(t_ast *ast, t_pipe pipes)
 		exec_and_or(ast, pipes);
 	if (ast->type == PIPE)
 		exec_pipe(ast, pipes);
+	if (ast->type == REDAPP)
+		exec_redapp(ast, pipes);
 	if (ast->type == REDOUT)
 		exec_redout(ast, pipes);
 	if (ast->type == STRING)

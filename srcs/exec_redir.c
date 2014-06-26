@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 14:30:39 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 20:25:10 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 20:55:08 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,29 @@ int		exec_redout(t_ast *ast, t_pipe pipes)
 	int		fd;
 
 	fd = open(ast->str, O_WRONLY | O_TRUNC | O_CREAT);
+	pipeup[0] = pipes.out[0];
+	pipeup[1] = pipes.out[1];
+	pipes.out[0] = -1;
+	pipes.out[1] = fd;
+	if (ast->left != NULL)
+		exec_node(ast->left, pipes);
+	else
+		exec_node(ast->right, pipes);
+	if (pipeup[1] != STDOUT_FILENO)
+	{
+		fd = open(ast->str, O_RDONLY);
+		dup2(fd, pipeup[0]);
+		close(pipeup[1]);
+	}
+	return (1);	
+}
+
+int		exec_redapp(t_ast *ast, t_pipe pipes)
+{
+	int		pipeup[2];
+	int		fd;
+
+	fd = open(ast->str, O_WRONLY | O_CREAT | O_APPEND);
 	pipeup[0] = pipes.out[0];
 	pipeup[1] = pipes.out[1];
 	pipes.out[0] = -1;
