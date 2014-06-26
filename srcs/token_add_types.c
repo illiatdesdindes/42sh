@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/28 12:55:09 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 16:44:10 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 16:58:01 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		token_add_red(t_tok **tokens, char *str, int *i)
 		token_add(tokens, REDIN, cmd);
 	while (isspce(*(str + (pos))))
 		pos++;
-	*i += (*(str + 1) == '>') ? pos : pos - 1;
+	*i += pos - 1;
 	return (ret);
 }
 
