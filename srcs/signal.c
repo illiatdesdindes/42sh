@@ -14,7 +14,12 @@
 
 void	sig_handler(int sig)
 {
-	(void)sig;
+	if (sig == SIGSEGV)
+	{
+		ft_putstr("parse error\n");
+		execve(returncurr(NULL, NULL), NULL, g_environ);
+		return ;
+	}
 	ft_putchar('\n');
 	if (!returnrun(0, 0))
 		putprompt();

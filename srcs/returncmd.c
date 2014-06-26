@@ -38,3 +38,17 @@ char	*returnflare(char *str)
 		path = ft_strjoin(str, "/BTreeViewer/flare.json");
 	return (path);
 }
+
+char	*returncurr(char *str, char *name)
+{
+	char		*tmp;
+	static char	*path;
+
+	if (path == NULL && str != NULL && name != NULL)
+	{
+		tmp = ft_strjoin(str, "/");
+		path = ft_strjoin(tmp, name);
+		ft_strdel(&tmp);
+	}
+	return (path);
+}

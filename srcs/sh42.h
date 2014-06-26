@@ -106,6 +106,7 @@ void				sig_handler(int sig);
 void				putprompt(void);
 void				bi_cd_deleg3(char *get);
 int					returnrun(int n, int set);
+char				*returncurr(char *str, char *name);
 char				*returnflare(char *str);
 
 #endif

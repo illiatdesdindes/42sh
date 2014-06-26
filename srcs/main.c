@@ -35,6 +35,8 @@ void	init_shell(int ac, char **av, char **env)
 	copyenv(env);
 	stdio_init_dup();
 	signal(SIGINT, &sig_handler);
+	signal(SIGSEGV, &sig_handler);
+	returncurr(ft_getenv("PWD"), av[0]);
 	returnflare(ft_getenv("PWD"));
 }
 
