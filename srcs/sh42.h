@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 22:08:49 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 22:19:36 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ t_ast				*parser(t_tok *token, t_ast *ast);
 int					syntax(t_tok *token);
 t_ast				*ast_new(t_tok *token);
 t_ast				*ast_root(t_ast *ast);
+void				insert(t_tok *token, t_ast *ast);
+void				insert_right(t_tok *token, t_ast *ast);
+void				insert_left(t_tok *token, t_ast *ast);
 int					exec_node(t_ast *ast, t_pipe pipes);
 int					exec_redout(t_ast *ast, t_pipe pipes);
 int					exec_redapp(t_ast *ast, t_pipe pipes);

@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 16:55:13 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 22:16:41 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ast_put_name(t_ast *ast, int fd)
 {
 	ft_putstr_fd("\"name\": ", fd);
 	ft_putchar_fd('"', fd);
-	if (ast && (ast->type == STRING || ast->type == REDIN 
-				|| ast->type == REDOUT|| ast->type == REDAPP))
+	if (ast && (ast->type == STRING || ast->type == REDIN
+				|| ast->type == REDOUT || ast->type == REDAPP))
 		ast_put_str(ast, fd);
 	if (ast && ast->type == PIPE)
 		ft_putstr_fd("PIPE", fd);

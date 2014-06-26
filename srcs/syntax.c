@@ -6,12 +6,11 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:39:38 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 20:37:42 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 22:17:00 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh42.h>
-
 
 static int		syntax_notsemic(t_tok *token)
 {

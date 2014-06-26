@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/26 13:21:08 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 13:55:16 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 22:17:29 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ char		*g_builtins[] = {"echo", "env", "cd", "exit", "setenv", "unsetenv",
 void		(*g_func[])(char**) = {bi_echo, bi_printenv, bi_cd, bi_exit,
 	bi_setenv, bi_unsetenv};
 
-void	bi_printenv(char **av)
+void		bi_printenv(char **av)
 {
 	(void)av;
 	putstrv(g_environ);
 }
 
-void	bi_exit(char **av)
+void		bi_exit(char **av)
 {
 	(void)av;
 	if (av[1])
@@ -57,7 +57,7 @@ static int	echo(char **av, int i, int j)
 	return (j);
 }
 
-void	bi_echo(char **av)
+void		bi_echo(char **av)
 {
 	int		i;
 	int		j;
@@ -78,7 +78,7 @@ void	bi_echo(char **av)
 	ft_putchar('\n');
 }
 
-int		isbuiltin(char **av)
+int			isbuiltin(char **av)
 {
 	int		i;
 

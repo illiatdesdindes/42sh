@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 14:30:39 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 22:07:33 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 22:16:17 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		exec_redout(t_ast *ast, t_pipe pipes)
 		dup2(fd, pipeup[0]);
 		close(pipeup[1]);
 	}
-	return (1);	
+	return (1);
 }
 
 int		exec_redapp(t_ast *ast, t_pipe pipes)
@@ -74,5 +74,5 @@ int		exec_redapp(t_ast *ast, t_pipe pipes)
 		dup2(fd, pipeup[0]);
 		close(pipeup[1]);
 	}
-	return (1);	
+	return (1);
 }
