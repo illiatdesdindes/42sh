@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/20 11:17:57 by svachere          #+#    #+#             */
-/*   Updated: 2014/03/11 18:08:28 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 14:13:59 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 	char	*new_str;
 
+	if (s1 == NULL)
+		return (NULL);
 	len = ft_strlen(s1);
 	new_str = (char*)malloc(sizeof(char) * (len + 1));
 	if (new_str == NULL)

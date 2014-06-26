@@ -6,7 +6,7 @@
 /*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:39:15 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 14:39:18 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 14:19:12 by svachere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,17 @@ int		type_rank(enum e_toktype type)
 {
 	if (type == STRING)
 		return (1);
-	if (type == PIPE)
+	if (type == REDIN)
 		return (2);
-	if (type == AND || type == OR)
+	if (type == REDOUT)
 		return (3);
-	return (4);
+	if (type == REDAPP)
+		return (4);
+	if (type == PIPE)
+		return (5);
+	if (type == AND || type == OR)
+		return (6);
+	return (7);
 }
 
 t_ast	*descend(t_tok *token, t_ast *ast)
