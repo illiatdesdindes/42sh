@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:39:47 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 15:38:20 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,18 @@
 # include <sys/wait.h>
 
 # define GETCWD_SIZE	512
-# define DEBUG			0
+# define DEBUG			1
 # define MULTI_LINE		0
+# define SINGLE_LINE	0
 # define SET			0
 # define GET			1
 
 typedef enum		e_toktype
 {
 	STRING,
+	REDIN,
+	REDOUT,
+	REDAPP,
 	PIPE,
 	AND,
 	OR,
@@ -56,6 +60,7 @@ typedef struct		s_pipe
 	int				out[2];
 }					t_pipe;
 
+int					isspce(char c);
 char				**ft_strsplitquote(char const *s, char *splitchars);
 int					contentpath(char *file);
 int					findcmd(char **av, t_pipe pipes);
@@ -84,6 +89,7 @@ t_tok				*lexer(char *line);
 int					isopsymb(char c);
 t_tok				*token_add(t_tok **tokens, t_toktype toktype, char *str);
 t_tok				*token_add_string(t_tok **tokens, char **str, int *ilexer);
+int					token_add_red(t_tok **tokens, char *str, int *i);
 void				print_tokens(t_tok *tokens);
 void				print_ast(t_ast *ast);
 int					returncmd(int n, int set);

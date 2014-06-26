@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 17:07:42 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 16:08:18 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 15:38:05 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		isspce(char c)
 
 int		isopsymb(char c)
 {
-	if (c == '|' || c == ';' || c == '&')
+	if (c == '|' || c == ';' || c == '&' || c == '<' || c == '>')
 		return (1);
 	return (0);
 }
@@ -44,11 +44,10 @@ t_tok	*lexer(char *line)
 			token_add(&tokens, OR, NULL);
 		else if (line[i] == '|')
 			token_add(&tokens, PIPE, NULL);
-		else if (!isspce(line[i]))
-		{
-			tmp = ft_strdup(line + i);
+		else if (line[i] == '>' || line[i] == '<')
+			token_add_red(&tokens, &line[i], &i);
+		else if (!isspce(line[i]) && (tmp = ft_strdup(line + i)))
 			token_add_string(&tokens, &tmp, &i);
-		}
 	}
 	return (tokens);
 }
