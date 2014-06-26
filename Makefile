@@ -6,16 +6,18 @@
 #    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/05/29 17:59:11 by apergens         ###   ########.fr        #
+#    Updated: 2014/06/25 17:46:27 by svachere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 42sh
+NAME = patatesh
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g3
 SRCSFILES = main.c \
 			env.c \
+			copyenv.c \
 	 		pathmanip.c \
+			findcmdexec.c \
 			free.c \
 			builtins.c \
 			builtins2.c \
@@ -27,7 +29,13 @@ SRCSFILES = main.c \
 			returncmd.c \
 			ast.c \
 			syntax.c \
-			parser.c
+			parser.c \
+			exec_node.c \
+			ft_strsplitquote.c \
+			stdin_stdout.c \
+			signal.c \
+			prompt.c \
+			bi_cd2.c
 SRCSDIR = srcs/
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJSDIR = objs/

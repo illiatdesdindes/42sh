@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   bi_cd2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alepinoy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/20 17:05:02 by svachere          #+#    #+#             */
-/*   Updated: 2013/11/20 17:06:57 by svachere         ###   ########.fr       */
+/*   Created: 2014/06/25 17:01:31 by alepinoy          #+#    #+#             */
+/*   Updated: 2014/06/25 17:01:32 by alepinoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <sh42.h>
 
-char	*ft_strrchr(const char *s, int c)
+void	bi_cd_deleg3(char *get)
 {
-	int	len;
-
-	len = ft_strlen(s) + 1;
-	while (--len)
+	if (getcwd(get, GETCWD_SIZE) != NULL
+			&& !(*(get + GETCWD_SIZE) = '\0'))
 	{
-		if (s[len] == (char)c)
-			return ((char*)s + len);
+		ft_setenv("OLDPWD", ft_getenv("PWD"), 1);
+		ft_setenv("PWD", get, 1);
 	}
-	if (s[len] == (char)c)
-		return ((char*)s + len);
-	return (NULL);
 }

@@ -17,5 +17,15 @@ int		returncmd(int n, int set)
 	static int	ret;
 
 	ret = set ? n : ret;
+	if (set)
+		returnrun(0, 1);
+	return (ret);
+}
+
+int		returnrun(int n, int set)
+{
+	static int	ret;
+
+	ret = set ? n : ret;
 	return (ret);
 }

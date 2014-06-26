@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alepinoy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/20 17:05:02 by svachere          #+#    #+#             */
-/*   Updated: 2013/11/20 17:06:57 by svachere         ###   ########.fr       */
+/*   Created: 2014/06/25 13:56:19 by alepinoy          #+#    #+#             */
+/*   Updated: 2014/06/25 13:56:21 by alepinoy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <sh42.h>
 
-char	*ft_strrchr(const char *s, int c)
+void	sig_handler(int sig)
 {
-	int	len;
-
-	len = ft_strlen(s) + 1;
-	while (--len)
-	{
-		if (s[len] == (char)c)
-			return ((char*)s + len);
-	}
-	if (s[len] == (char)c)
-		return ((char*)s + len);
-	return (NULL);
+	(void)sig;
+	ft_putchar('\n');
+	if (!returnrun(0, 0))
+		putprompt();
 }

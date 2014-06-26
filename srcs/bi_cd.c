@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/26 00:22:22 by apergens          #+#    #+#             */
-/*   Updated: 2014/05/26 14:16:48 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:33:04 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,37 @@ static void		bi_cd_strdir(char *pwd, int endl)
 	return ;
 }
 
+static int		bi_cd_deleg2(char *dir, char *get)
+{
+	if (ft_strncmp(dir, "~/", 2) == 0)
+	{
+		if (chdir(ft_strjoin(ft_getenv("HOME"), dir + 1)) > -1)
+			bi_cd_deleg3(get);
+		else
+		{
+			ft_putstr_fd("cd: No such file or directory: ", STDERR_FILENO);
+			ft_putendl_fd(dir, STDERR_FILENO);
+		}
+	}
+	else if (dir[0] == '/' && dir[1] != '\0')
+	{
+		if (chdir(dir + 1) > -1)
+			bi_cd_deleg3(get);
+		else
+		{
+			ft_putstr_fd("cd: No such file or directory: ", STDERR_FILENO);
+			ft_putendl_fd(dir, STDERR_FILENO);
+		}
+	}
+	return (0);
+}
+
 static int		bi_cd_deleg(char *dir, char **av, int home)
 {
-	int		ret;
 	char	get[GETCWD_SIZE + 1];
 
-	if (home)
-	{
-		if (!ft_strcmp(dir, "~") || !ft_strncmp(dir, "--", ft_strlen(dir)))
-			return (1);
-		return (0);
-	}
-	if ((ret = chdir(dir)) > -1)
+	home = 0;
+	if (chdir(dir) > -1)
 	{
 		if (getcwd(get, GETCWD_SIZE) != NULL && !(*(get + GETCWD_SIZE) = '\0'))
 		{
@@ -59,22 +78,18 @@ static int		bi_cd_deleg(char *dir, char **av, int home)
 		}
 	}
 	else if (!(*(av + 1) != NULL && *(av + 2) != NULL))
-	{
-		ft_putstr_fd("cd: No such file or directory: ", STDERR_FILENO);
-		ft_putendl_fd(dir, STDERR_FILENO);
-	}
+		bi_cd_deleg2(dir, get);
 	return (0);
 }
 
 void			bi_cd(char **av)
 {
 	char	*dir;
-	char	*ptr;
 
 	if (*(av + 1) != NULL && *(av + 2) != NULL)
-		ft_putendl_fd("cd: too many arguments", 2);
+		ft_putendl_fd("cd: too many arguments", STDERR_FILENO);
 	dir = *(av + 1);
-	if ((ptr = dir) == NULL || !*dir || bi_cd_deleg(dir, av, 1))
+	if (dir == NULL || !*dir)
 		dir = ft_getenv("HOME");
 	else if (*dir == '-' && *(dir + 1) == '\0')
 	{
@@ -84,7 +99,7 @@ void			bi_cd(char **av)
 	else if (*dir == '-' && *(dir + 1) != '\0')
 	{
 		if (ft_isdigit(*(dir + 1)))
-			ft_putendl_fd("cd: no such entry in dir stack", 2);
+			ft_putendl_fd("cd: no such entry in dir stack", STDERR_FILENO);
 		else
 			ft_putstr_fd("cd: no such file or directory: ", STDERR_FILENO);
 		if (!ft_isdigit(*(dir + 1)))
@@ -92,5 +107,4 @@ void			bi_cd(char **av)
 		return ;
 	}
 	bi_cd_deleg(dir, av, 0);
-	ft_strdel(&ptr);
 }

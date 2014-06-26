@@ -3,80 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/05/21 17:08:54 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:44:45 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh42.h>
 
-extern char	**g_environ;
-
-int		execcmd(char *file, char **av)
+void	browse(t_ast *ast)
 {
-	int		state;
-	pid_t	pid;
+	t_pipe	pipes;
 
-	pid = fork();
-	if (pid == 0)
+	//print_ast(ast);
+	if (ast != NULL)
 	{
-		execve(file, av, g_environ);
-		ft_printf("an error occured while launching %s\n", file);
-		exit(-1);
+		pipes.in[0] = STDIN_FILENO;
+		pipes.in[1] = -1;
+		pipes.out[0] = -1;
+		pipes.out[1] = STDOUT_FILENO;
+		exec_node(ast, pipes);
 	}
-	if (pid > 0)
-	{
-		waitpid(pid, &state, 0);
-		returncmd(WEXITSTATUS(state), 1);
-	}
-	return (0);
 }
 
-int		testaccessandlaunch(char *file, char **av, char **path)
+void	init_shell(int ac, char **av, char **env)
 {
-	if (access(file, F_OK) == 0)
-	{
-		if (access(file, X_OK) == 0)
-		{
-			execcmd(file, av);
-			freefindcmd(path, file);
-			return (0);
-		}
-		ft_printf("permission denied: %s\n", *av);
-		return (-1);
-	}
-	return (1);
+	(void)ac;
+	(void)av;
+	error_if(env[0] == NULL, "Can't launch with an empty environment");
+	copyenv(env);
+	stdio_init_dup();
+	signal(SIGINT, &sig_handler);
 }
 
-int		findcmd(char **av)
+void	ret_check(int ret)
 {
-	int		i;
-	char	**path;
-	char	*file;
-	int		ret;
-
-	i = -1;
-	ret = 2;
-	if (contentpath(*av))
-		ret = testaccessandlaunch(ft_strdup(*av), av, NULL);
-	if (ret == 0 || ret == -1)
-		return (ret);
-	if (ret == 1 && ft_printf("no such file or directory: %s\n", *av))
-		return (-1);
-	path = get_path();
-	while (path[++i])
+	if (ret == -1)
+		ft_putstr_fd("stdin read failure\n", STDERR_FILENO);
+	else if (ret == 0)
 	{
-		file = joinwith(path[i], *av, "/");
-		ret = testaccessandlaunch(file, av, path);
-		if (ret == 0 || ret == -1)
-			return (ret);
-		free(file);
+		ft_putstr_fd("Bye!\n", STDERR_FILENO);
+		exit(0);
 	}
-	ft_printf("command not found: %s\n", *av);
-	freestrv(path);
-	return (-1);
 }
 
 int		main(int argc, char **argv, char **env)
@@ -86,22 +55,23 @@ int		main(int argc, char **argv, char **env)
 	t_tok	*tokens;
 	t_ast	*ast;
 
-	(void)argc;
-	(void)argv;
-	copyenv(env);
-	while (1)
+	init_shell(argc, argv, env);
+	while (42)
 	{
-		ft_putstr("$> ");
-		error_if((ret = get_next_line(0, &line)) == -1, "stdin read failure\n");
-		if (line != NULL && *line != '\0')
+		putprompt();
+		ret_check(ret = get_next_line(0, &line));
+		if (line != NULL && *line != '\0' && (tokens = lexer(line)))
 		{
-			tokens = lexer(line);
-			print_tokens(tokens);
-			ast = NULL;
-			ast = parser(tokens, ast);
-			print_ast(ast);
+			if (DEBUG == 1)
+				print_tokens(tokens);
+			if (syntax(tokens) == 1 && !(ast = NULL))
+			{
+				ast = parser(tokens, ast);
+				browse(ast);
+			}
+			free_token_ast(&tokens, &ast);
 		}
-		free(line);
+		ft_strdel(&line);
 	}
 	return (0);
 }
