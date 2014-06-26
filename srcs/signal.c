@@ -17,6 +17,7 @@ void	sig_handler(int sig)
 	if (sig == SIGSEGV)
 	{
 		ft_putstr("parse error\n");
+		signal(SIGSEGV, SIG_DFL);
 		execve(returncurr(NULL, NULL), NULL, g_environ);
 		return ;
 	}
