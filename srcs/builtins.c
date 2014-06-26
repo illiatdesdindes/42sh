@@ -27,8 +27,10 @@ void	bi_printenv(char **av)
 void	bi_exit(char **av)
 {
 	(void)av;
-	if (av[1]) {
-		if (!ft_isalpha(av[1][0]) || av[1][0] == '-' || av[1][0] == '+')
+	if (av[1])
+	{
+		if (!ft_isalpha(av[1][0]) && !ft_isdigit(av[1][0])
+				&& av[1][0] != '-' && av[1][0] != '+')
 		{
 			ft_printf("bad math expression: %s\n", av[1]);
 			exit(0);
