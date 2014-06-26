@@ -79,7 +79,7 @@ void				bi_unsetenv(char **av);
 void				bi_printenv(char **av);
 void				bi_cd(char **av);
 void				bi_exit(char **av);
-void				bi_test(char **av);
+void				bi_echo(char **av);
 t_tok				*lexer(char *line);
 int					isopsymb(char c);
 t_tok				*token_add(t_tok **tokens, t_toktype toktype, char *str);
@@ -99,5 +99,6 @@ char				**g_environ;
 void				sig_handler(int sig);
 void				putprompt(void);
 void				bi_cd_deleg3(char *get);
+int					returnrun(int n, int set);
 
 #endif

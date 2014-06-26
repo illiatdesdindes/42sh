@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+AST_JSON = {"name": "STRING : cd"};
+=======
 AST_JSON = {"name": "STRING : exit"};
+>>>>>>> d4b3424263929947f48ce03569676c3ed3a88961

@@ -16,5 +16,6 @@ void	sig_handler(int sig)
 {
 	(void)sig;
 	ft_putchar('\n');
-	putprompt();
+	if (!returnrun(0, 0))
+		putprompt();
 }

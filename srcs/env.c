@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/26 15:54:12 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:52:18 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:49:46 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,20 @@ static char		*ft_streg(char *str)
 
 char			*ft_getenv(char *name)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = -1;
 	while (g_environ[++i])
 	{
-		if (ft_strstr(ft_streg(g_environ[i]), name)
+		tmp = ft_streg(g_environ[i]);
+		if (ft_strstr(tmp, name)
 				&& (ft_strlen(name) == ft_strleneg(g_environ[i])))
+		{
+			ft_strdel(&tmp);
 			return (ft_strchr(g_environ[i], '=') + 1);
+		}
+		ft_strdel(&tmp);
 	}
 	return (NULL);
 }
@@ -64,7 +70,7 @@ int				ft_setenv(char *name, char *value, int overwrite)
 
 	if (!name || name == NULL || !value || value == NULL)
 	{
-		ft_putendl("Syntax error. Example: setenv key value");
+		ft_putendl_fd("Syntax error. Example: setenv key value", STDERR_FILENO);
 		return (1);
 	}
 	find = ft_getenv(name);
@@ -76,9 +82,7 @@ int				ft_setenv(char *name, char *value, int overwrite)
 		while (g_environ[++i])
 		{
 			if (ft_strstr(g_environ[i], name))
-			{
 				return (strvput(g_environ + i, joinwith(name, value, "=")));
-			}
 		}
 	}
 	else
@@ -90,7 +94,7 @@ int				ft_unsetenv(char *name, int i, int find)
 {
 	if (!name || name == NULL)
 	{
-		ft_putendl("Syntax error. Example: unsetenv key");
+		ft_putendl_fd("Syntax error. Example: unsetenv key", STDERR_FILENO);
 		return (1);
 	}
 	while (g_environ[++i])
@@ -101,14 +105,14 @@ int				ft_unsetenv(char *name, int i, int find)
 				&& (ft_strlen(name) == ft_strleneg(g_environ[i])))
 		{
 			find = 1;
-			free(g_environ[i]);
+			ft_strdel(&g_environ[i]);
 			g_environ[i] = NULL;
 		}
 	}
 	if (find == 1)
 	{
+		ft_strdel(&g_environ[i - 1]);
 		g_environ[i - 1] = NULL;
-		free(g_environ[i - 1]);
 	}
 	return (0);
 }

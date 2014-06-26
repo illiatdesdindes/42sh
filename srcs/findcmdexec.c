@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   findcmdexec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 15:54:19 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 18:11:09 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:35:16 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,22 @@
 
 extern char	**g_environ;
 
-int		execcmd(char *file, char **av, t_pipe pipes)
+int		execcmd_deleg(pid_t pid, t_pipe pipes)
 {
 	int		state;
+
+	returnrun(1, 1);
+	waitpid(pid, &state, 0);
+	returncmd(WEXITSTATUS(state), 1);
+	if (pipes.in[0] != STDIN_FILENO)
+		close(pipes.in[0]);
+	if (pipes.out[1] != STDOUT_FILENO)
+		close(pipes.out[1]);
+	return (0);
+}
+
+int		execcmd(char *file, char **av, t_pipe pipes)
+{
 	pid_t	pid;
 
 	if ((pid = fork()) == 0)
@@ -32,14 +45,7 @@ int		execcmd(char *file, char **av, t_pipe pipes)
 		exit(-1);
 	}
 	if (pid > 0)
-	{
-		waitpid(pid, &state, 0);
-		returncmd(WEXITSTATUS(state), 1);
-		if (pipes.in[0] != STDIN_FILENO)
-			close(pipes.in[0]);
-		if (pipes.out[1] != STDOUT_FILENO)
-			close(pipes.out[1]);
-	}
+		execcmd_deleg(pid, pipes);
 	return (0);
 }
 

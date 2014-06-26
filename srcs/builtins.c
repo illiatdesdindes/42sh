@@ -13,9 +13,9 @@
 #include <sh42.h>
 
 extern char	**g_environ;
-char		*g_builtins[] = {"test", "env", "cd", "exit", "setenv", "unsetenv",
+char		*g_builtins[] = {"echo", "env", "cd", "exit", "setenv", "unsetenv",
 	NULL};
-void		(*g_func[])(char**) = {bi_test, bi_printenv, bi_cd, bi_exit,
+void		(*g_func[])(char**) = {bi_echo, bi_printenv, bi_cd, bi_exit,
 	bi_setenv, bi_unsetenv};
 
 void	bi_printenv(char **av)
@@ -27,16 +27,43 @@ void	bi_printenv(char **av)
 void	bi_exit(char **av)
 {
 	(void)av;
+	if (av[1]) {
+		if (!ft_isalpha(av[1][0]) && !ft_isdigit(av[1][0])
+				&& av[1][0] != '-' && av[1][0] != '+')
+		{
+			ft_printf("bad math expression: %s\n", av[1]);
+			exit(0);
+		}
+		exit(ft_atoi(av[1]));
+	}
 	exit(0);
 }
 
-void	bi_test(char **av)
+void	bi_echo(char **av)
 {
-	(void)av;
-	ft_setenv("TRUC", "machin", 1);
-	ft_setenv("TRUC2", "machin2", 0);
-	ft_setenv("TRUC", "ne remplace pas", 0);
-	ft_setenv("TRUC", "remplace", 1);
+	int		i;
+	int		j;
+
+	i = 1;
+	while (av[i])
+	{
+		j = 0;
+		if (i > 1)
+			ft_putchar(' ');
+		while (av[i][j])
+		{
+			if (av[i][j] == '\\' && av[i][j + 1] == 'n')
+			{
+				ft_putchar('\n');
+				j++;
+			}
+			else
+				ft_putchar(av[i][j]);
+			j++;
+		}
+		i++;
+	}
+	ft_putchar('\n');
 }
 
 int		isbuiltin(char **av)

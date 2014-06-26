@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/26 00:22:22 by apergens          #+#    #+#             */
-/*   Updated: 2014/05/26 14:16:48 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/26 09:33:04 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			bi_cd(char **av)
 	char	*dir;
 
 	if (*(av + 1) != NULL && *(av + 2) != NULL)
-		ft_putendl_fd("cd: too many arguments", 2);
+		ft_putendl_fd("cd: too many arguments", STDERR_FILENO);
 	dir = *(av + 1);
 	if (dir == NULL || !*dir)
 		dir = ft_getenv("HOME");
@@ -99,7 +99,7 @@ void			bi_cd(char **av)
 	else if (*dir == '-' && *(dir + 1) != '\0')
 	{
 		if (ft_isdigit(*(dir + 1)))
-			ft_putendl_fd("cd: no such entry in dir stack", 2);
+			ft_putendl_fd("cd: no such entry in dir stack", STDERR_FILENO);
 		else
 			ft_putstr_fd("cd: no such file or directory: ", STDERR_FILENO);
 		if (!ft_isdigit(*(dir + 1)))
