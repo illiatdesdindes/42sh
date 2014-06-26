@@ -14,5 +14,11 @@
 
 void	ft_putnbr(int n)
 {
-	ft_putstr(ft_itoa(n));
+	char	*tmp;
+
+	if ((tmp = ft_itoa(n)))
+	{
+		ft_putstr(tmp);
+		ft_strdel(&tmp);
+	}
 }

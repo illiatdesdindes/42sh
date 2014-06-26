@@ -56,6 +56,11 @@ void	bi_echo(char **av)
 				ft_putchar('\n');
 				j++;
 			}
+			else if (av[i][j] == '$' && av[i][j + 1] == '$')
+			{
+				ft_putnbr(getpid());
+				j++;
+			}
 			else
 				ft_putchar(av[i][j]);
 			j++;
