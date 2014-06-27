@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 15:54:19 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/27 11:08:25 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:14:35 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,5 @@ int		send_commandline(char **cmd)
 		}
 		free_token_ast(&tokens, &ast);
 	}
-	//ft_strdel(cmd);
 	return (ret);
 }
