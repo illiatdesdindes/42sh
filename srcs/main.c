@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/27 08:07:33 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/27 09:16:50 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ void	init_shell(int ac, char **av, char **env)
 	if (ac > 1 && (i = 1))
 	{
 		str = NULL;
-		cmd = av[i];
+		cmd = ft_strdup(av[i]);
 		while (av[++i] && (str = joinwith(cmd, av[i], " ")))
 		{
-			if (i > 2)
-				ft_strdel(&cmd);
+			ft_strdel(&cmd);
 			cmd = str;
 		}
 		if (i > 1)

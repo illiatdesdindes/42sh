@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 17:07:42 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 15:38:05 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:13:59 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_tok	*lexer(char *line)
 
 	i = -1;
 	tokens = NULL;
+
 	while (line[++i])
 	{
 		if (line[i] == ';')

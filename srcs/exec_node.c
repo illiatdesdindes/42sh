@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 14:43:35 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 22:25:55 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:06:08 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int		exec_string(t_ast *ast, t_pipe pipes)
 	int		ret;
 
 	ret = 1;
-	if (SINGLE_LINE)
+	av = NULL;
+	if (SINGLE_LINE && ast->str)
 		av = ft_strsplitquote(ast->str, " \t");
-	else
+	else if (ast->str)
 		av = ft_strsplit(ast->str, " \t");
 	if (!isbuiltin(av))
 		ret = findcmd(av, pipes);

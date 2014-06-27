@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 15:54:19 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/27 07:53:39 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:08:25 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,20 @@ int		findcmd(char **av, t_pipe pipes)
 
 	i = -1;
 	ret = 2;
-	if (contentpath(*av))
+	if (av && *av && contentpath(*av))
 		ret = testaccessandlaunch(ft_strdup(*av), av, NULL, pipes);
 	if (ret == 0 || ret == -1)
 		return (ret);
 	if (ret == 1 && ft_printf("no such file or directory: %s\n", *av))
 		return (-1);
 	path = get_path();
-	while (path[++i])
+	while (path[++i] && av && *av)
 	{
 		file = joinwith(path[i], *av, "/");
 		ret = testaccessandlaunch(file, av, path, pipes);
 		if (ret == 0 || ret == -1)
 			return (ret);
-		free(file);
+		ft_strdel(&file);
 	}
 	ft_printf("command not found: %s\n", *av);
 	ft_strvdel(&path);
@@ -118,6 +118,6 @@ int		send_commandline(char **cmd)
 		}
 		free_token_ast(&tokens, &ast);
 	}
-	ft_strdel(cmd);
+	//ft_strdel(cmd);
 	return (ret);
 }

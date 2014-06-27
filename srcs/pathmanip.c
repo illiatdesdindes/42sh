@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 16:21:56 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 16:06:03 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/27 09:33:03 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*joinlines(char **s1, char **s2, int pfree)
 	if (*s1 && *s2 && (tmp2 = ft_strjoin(*s1, "\n")))
 	{
 		tmp = ft_strjoin(tmp2, *s2);
-		free(tmp2);
+		ft_strdel(&tmp2);
 		if (pfree == 1 || pfree == 3)
 			ft_strdel(s1);
 	}
@@ -61,7 +61,7 @@ char	*joinwith(char *path, char *file, char *join)
 	if ((slashedfile = ft_strjoin(join, file)))
 	{
 		path = ft_strjoin(path, slashedfile);
-		free(slashedfile);
+		ft_strdel(&slashedfile);
 	}
 	return (path);
 }

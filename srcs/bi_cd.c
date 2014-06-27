@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/26 00:22:22 by apergens          #+#    #+#             */
-/*   Updated: 2014/06/26 09:33:04 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:11:16 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,10 @@ static int		bi_cd_deleg2(char *dir, char *get)
 	return (0);
 }
 
-static int		bi_cd_deleg(char *dir, char **av, int home)
+static int		bi_cd_deleg(char *dir, char **av)
 {
 	char	get[GETCWD_SIZE + 1];
 
-	home = 0;
 	if (chdir(dir) > -1)
 	{
 		if (getcwd(get, GETCWD_SIZE) != NULL && !(*(get + GETCWD_SIZE) = '\0'))
@@ -106,5 +105,5 @@ void			bi_cd(char **av)
 			ft_putendl_fd(dir, STDERR_FILENO);
 		return ;
 	}
-	bi_cd_deleg(dir, av, 0);
+	bi_cd_deleg(dir, av);
 }

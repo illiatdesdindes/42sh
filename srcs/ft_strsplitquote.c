@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 12:19:30 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/25 17:53:44 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/27 09:41:17 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ static char		**ft_add_word_to_table(char *word, char **table)
 	}
 	tmptable[i] = word;
 	tmptable[i + 1] = NULL;
-	if (table != NULL)
-		free(table);
+	ft_strdel(table);
 	return (tmptable);
 }
 

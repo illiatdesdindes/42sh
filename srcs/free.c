@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svachere <svachere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 17:18:29 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/23 14:30:00 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:02:06 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,38 @@
 
 void	freefindcmd(char **path, char *file)
 {
-	free(file);
+	ft_strdel(&file);
 	if (path)
 		ft_strvdel(&path);
 }
 
-void	free_ast(t_ast *ast)
+void	free_ast(t_ast **ast)
 {
-	if (ast != NULL)
+	if (ast && *ast)
 	{
-		free_ast(ast->left);
-		free_ast(ast->right);
-		if (ast->str != NULL)
-			free(ast->str);
-		free(ast);
+		free_ast(&(*ast)->left);
+		free_ast(&(*ast)->right);
+		ft_strdel(&(*ast)->str);
+		ft_bzero(*ast, sizeof(t_ast));
+		ft_memdel((void *)*ast);
 	}
 }
 
-void	free_token(t_tok *tok)
+void	free_token(t_tok **tok)
 {
-	if (tok != NULL)
+	if (tok && *tok)
 	{
-		free_token(tok->next);
-		if (tok->str != NULL)
-			free(tok->str);
-		free(tok);
+		free_token(&(*tok)->next);
+		ft_strdel(&(*tok)->str);
+		ft_bzero(*tok, sizeof(t_tok));
+		ft_memdel((void *)*tok);
 	}
 }
 
 void	free_token_ast(t_tok **tok, t_ast **ast)
 {
-	free_token(*tok);
+	free_token(tok);
 	*tok = NULL;
-	free_ast(*ast);
+	free_ast(ast);
 	*ast = NULL;
 }
