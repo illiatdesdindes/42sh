@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   findcmdexec.c                                      :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 15:54:19 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 15:04:43 by apergens         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:53:39 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ int		testaccessandlaunch(char *file, char **av, char **path, t_pipe pipes)
 {
 	if (access(file, F_OK) == 0)
 	{
-		if (access(file, X_OK) == 0)
+		if (pipes.out[1] < 0)
+		{
+			ft_printf("permission denied\n", *av);
+			return (-1);
+		}
+		else if (access(file, X_OK) == 0)
 		{
 			execcmd(file, av, pipes);
 			freefindcmd(path, file);
@@ -92,4 +97,27 @@ int		findcmd(char **av, t_pipe pipes)
 	ft_printf("command not found: %s\n", *av);
 	ft_strvdel(&path);
 	return (-1);
+}
+
+int		send_commandline(char **cmd)
+{
+	int		ret;
+	t_ast	*ast;
+	t_tok	*tokens;
+
+	ret = 1;
+	if (*cmd != NULL && **cmd != '\0' && (tokens = lexer(*cmd)))
+	{
+		if (DEBUG == 1)
+			print_tokens(tokens);
+		if (syntax(tokens) == 1 && !(ast = NULL))
+		{
+			ast = parser(tokens, ast);
+			browse(ast);
+			ret = 0;
+		}
+		free_token_ast(&tokens, &ast);
+	}
+	ft_strdel(cmd);
+	return (ret);
 }

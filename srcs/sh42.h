@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:48:04 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 22:19:36 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:59:12 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int					isstrredir(enum e_toktype type);
 char				**ft_strsplitquote(char const *s, char *splitchars);
 int					contentpath(char *file);
 int					findcmd(char **av, t_pipe pipes);
+void				browse(t_ast *ast);
+int					send_commandline(char **cmd);
 void				freestrv(char **strv);
 void				free_token_ast(t_tok **tok, t_ast **ast);
 void				strvtrim(char **strv);

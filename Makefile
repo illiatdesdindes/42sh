@@ -6,7 +6,7 @@
 #    By: apergens <apergens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 12:04:58 by svachere          #+#    #+#              #
-#    Updated: 2014/06/26 22:19:59 by svachere         ###   ########.fr        #
+#    Updated: 2014/06/27 07:52:34 by apergens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCSFILES = main.c \
 			env.c \
 			copyenv.c \
 	 		pathmanip.c \
-			findcmdexec.c \
+			exec_cmd.c \
 			free.c \
 			builtins.c \
 			builtins2.c \

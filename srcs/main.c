@@ -6,7 +6,7 @@
 /*   By: apergens <apergens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/25 14:45:23 by svachere          #+#    #+#             */
-/*   Updated: 2014/06/26 20:38:03 by svachere         ###   ########.fr       */
+/*   Updated: 2014/06/27 08:07:33 by apergens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	browse(t_ast *ast)
 
 void	init_shell(int ac, char **av, char **env)
 {
-	(void)ac;
-	(void)av;
+	int		i;
+	char	*cmd;
+	char	*str;
+
 	error_if(env[0] == NULL, "Can't launch with an empty environment");
 	copyenv(env);
 	stdio_init_dup();
@@ -38,6 +40,20 @@ void	init_shell(int ac, char **av, char **env)
 	signal(SIGSEGV, &sig_handler);
 	returncurr(ft_getenv("PWD"), av[0]);
 	returnflare(ft_getenv("PWD"));
+	if (ac > 1 && (i = 1))
+	{
+		str = NULL;
+		cmd = av[i];
+		while (av[++i] && (str = joinwith(cmd, av[i], " ")))
+		{
+			if (i > 2)
+				ft_strdel(&cmd);
+			cmd = str;
+		}
+		if (i > 1)
+			i = send_commandline(&cmd);
+		exit(!((i > 1 || !i) && cmd));
+	}
 }
 
 void	ret_check(int ret)
@@ -55,26 +71,13 @@ int		main(int argc, char **argv, char **env)
 {
 	char	*line;
 	int		ret;
-	t_tok	*tokens;
-	t_ast	*ast;
 
 	init_shell(argc, argv, env);
 	while (42)
 	{
 		putprompt();
 		ret_check(ret = get_next_line(0, &line));
-		if (line != NULL && *line != '\0' && (tokens = lexer(line)))
-		{
-			if (DEBUG == 1)
-				print_tokens(tokens);
-			if (syntax(tokens) == 1 && !(ast = NULL))
-			{
-				ast = parser(tokens, ast);
-				browse(ast);
-			}
-			free_token_ast(&tokens, &ast);
-		}
-		ft_strdel(&line);
+		send_commandline(&line);
 	}
 	return (0);
 }
